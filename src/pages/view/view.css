@@ -1,0 +1,256 @@
+.searchbar {
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+  border-top: 1px solid #ccc;
+
+  width: 100%;
+  z-index: 100;
+  margin-left: -9%;
+
+  box-shadow: none !important;
+}
+
+.content {
+  width: 100%;
+  overflow: scroll;
+
+  margin-top: 60px;
+
+  flex: 0 1 auto;
+}
+
+.icon {
+  font-size: 50px;
+  color: var(--primary-color);
+}
+
+.category-title{
+  font-size: 12px;
+
+}
+
+
+.category-slots {
+  margin-bottom: 5rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+} 
+
+.category-cards-div {
+  width: 33.33%;
+
+  margin-top: 0.8rem;
+
+  cursor: pointer;  
+}
+
+.category-cards {
+  color:black;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-icon{
+  padding: 20px;
+  border-radius: 50%;
+  background-color: #F5F6F8;
+  box-shadow: 0px 38px 80px rgba(0, 0, 0, 0.07),
+              0px 15.8755px 33.4221px rgba(0, 0, 0, 0.0503198), 
+              0px 8.4878px 17.869px rgba(0, 0, 0, 0.0417275), 
+              0px 4.75819px 10.0172px rgba(0, 0, 0, 0.035), 
+              0px 2.52704px 5.32008px rgba(0, 0, 0, 0.0282725),
+              0px 1.05156px 2.21381px rgba(0, 0, 0, 0.0196802);
+}
+.category-icon:hover{
+  background-color: rgb(196, 195, 195);
+}
+
+
+.category-cards .category-title {
+  text-align: center;
+}
+
+.category-slots .category-cards .ion-icons {
+  font-size: 120px;
+  margin: 10% auto;
+}
+
+.file-list {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container .file-list {
+  margin-bottom: 60px;
+}
+
+.file-list .list-item {
+  background: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.17), 0px 3.28515px 6.5703px rgba(0, 0, 0, 0.117297),
+              0px 1.59488px 3.18976px rgba(0, 0, 0, 0.0945694), 
+              0px 0.781839px 1.56368px rgba(0, 0, 0, 0.0754306), 0px 0.30914px 0.618281px rgba(0, 0, 0, 0.0527031);
+  width: 95%;
+  height: 120px;
+  margin: 0.6rem 0 0 0;
+}
+
+.list-item { 
+  display: flex;
+  flex-direction: row;
+}
+
+.file-details {
+  display: flex;
+  direction: row;
+}
+
+.file-additional-details {
+  color: #e4e4e4;
+  font-size: small;
+  background-color: rgb(82, 82, 82);
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
+  width: 100%;
+
+  margin-bottom: 0.6rem;
+  padding: 20px 20px 1px 20px;
+
+  z-index: -10;
+  position: relative;
+  top: -25px;
+}
+
+.file-info .heading {
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+.file-info table {
+  font-size: 14px;
+
+  table-layout: fixed;
+
+  width: 100%;
+  height: 60%;
+
+  margin: 15px 1px;
+}
+
+.file-info table td {
+  padding: 0 4px;
+}
+
+.file-info table tr td p {
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  width: 100%;
+
+  margin: 5px 0;
+}
+
+
+.file-list .list-item .file-icon {
+  width: 25%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-list .list-item .file-icon img {
+  border-radius: 5px;
+}
+
+.file-list .list-item .file-info {
+  width: 55%;
+
+  padding-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.file-additional-details span {
+  font-weight: bold;
+  font-size: 14px;
+
+  margin-top: 10px;
+
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-additional-details p {
+  font-size: 12px;
+
+  margin: 3px 0;
+}
+
+.file-list .list-item .file-options {
+  width: 20%;
+
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.file-list .list-item .file-options p {
+  font-size: 14px;
+}
+
+.item-header {
+  border-bottom: 1px dashed #ccc;
+
+  margin: 0.1rem 0;
+  padding: 0.1rem 0.4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.item-header h4 {
+  position: relative;
+  top: -5px;
+}
+
+.options-button {
+  color: black;
+  background-color: transparent;
+
+  z-index: 99;
+
+  font-size: 32 !important;
+  font-weight: bold;
+
+  padding: 15px;
+
+  border-radius: 25px !important;
+
+  outline: none;
+}
+.fileattributes div{
+  padding: 3px;
+  font-size: 14px;
+}

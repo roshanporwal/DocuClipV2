@@ -1,0 +1,7 @@
+{
+  "name": "docuclip",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
