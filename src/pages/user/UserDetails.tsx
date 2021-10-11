@@ -32,7 +32,6 @@ type states = {
               State : any,
               Father : any, 
               Spouce : any,
-              Email : any,
               PAN : any,
               AadhaarCard : any,
               DOB : any,
@@ -62,6 +61,8 @@ export default class UserDetails extends React.Component<props, states> {
           AgeinYear,
           Vehicle,
           BloodGroup} = JSON.parse(add_data);
+
+
         this.state = {
               Address1 : {value:Address1,icon:MapIcon},
               Address2 : {value:Address2,icon:MapIcon},
@@ -69,7 +70,6 @@ export default class UserDetails extends React.Component<props, states> {
               State : {value:State,icon:StateIcon},
               Father : {value:Father,icon:FatherIcon}, 
               Spouce : {value:Spouce,icon:SpouceIcon},
-              Email : {value:Email,icon:MailIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
               DOB : {value:DOB,icon:DOBIcon},
@@ -87,7 +87,6 @@ export default class UserDetails extends React.Component<props, states> {
               State : {value: "",icon:StateIcon},
               Father : {value: "",icon:FatherIcon}, 
               Spouce : {value: "",icon:SpouceIcon},
-              Email : {value: "",icon:MailIcon},
               PAN : {value: "",icon:CardIcon},
               AadhaarCard : {value: "",icon:AadharIcon},
               DOB : {value: "",icon:DOBIcon},
@@ -101,6 +100,16 @@ export default class UserDetails extends React.Component<props, states> {
 
   showDate(date:Date){
     return date.toString().split('T')[0]
+  }
+
+  showMail(){
+    let mail = this.props.details.userEmail
+    if(mail.search(/'not_uploaded'/))
+    {
+      return "Not Uploaded";
+    }
+
+    return this.props.details.userEmail;
   }
   
   render() {
@@ -124,11 +133,14 @@ export default class UserDetails extends React.Component<props, states> {
             <p>{this.props.details.userName}</p>
           </div>
         </div>
+        <div className='profile-card-item'>
+          <img src={MailIcon} width="28px"/>
+          <div className="details"> 
+            <span>Email Address</span>
+            <p>{this.showMail()}</p>
+          </div>
+        </div>
 
-        {/* <div className='profile-card-item'>
-          <span>Email Address</span>
-          <p>{this.props.details.userEmail}</p>
-        </div> */}
         <div className='profile-card-item'>
           <img src={NameIcon} />
           <div className="details"> 

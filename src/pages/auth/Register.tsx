@@ -33,9 +33,7 @@ type States = {
   loginRedirect: string
 
   username: string
-  email: string
   fullname: string
-  nickname: string
   password: string
   passwordRe: string
   passwordScore: number
@@ -57,9 +55,7 @@ class Register extends React.Component<Props, States> {
       loginRedirect: "",
 
       username: "",
-      email: "",
       fullname: "",
-      nickname: "",
       password: "admin",
       passwordRe: "admin",
       passwordScore: 0,
@@ -77,7 +73,7 @@ class Register extends React.Component<Props, States> {
     this.setState({ isLoading: true })
 
     // throw error if any of the fields are empty || !this.state.email || !this.state.nickname
-    if (!this.state.username || !this.state.fullname || !this.state.email || !this.state.nickname) {
+    if (!this.state.username || !this.state.fullname /* || !this.state.email || !this.state.nickname */) {
       this.setState({
         error: "All fields are required",
         isLoading: false,
@@ -109,10 +105,10 @@ class Register extends React.Component<Props, States> {
 
     // pack the data to be sent with api call and call the api
     let credentialData = new FormData()
-    credentialData.append("username", this.state.username)
-    credentialData.append("email", this.state.email)
-    credentialData.append("fullname", this.state.fullname)
-    credentialData.append("nickname", this.state.nickname)
+    credentialData.append("username", this.state.username)/* 
+    credentialData.append("email", this.state.email) */
+    credentialData.append("fullname", this.state.fullname)/* 
+    credentialData.append("nickname", this.state.nickname) */
     axios
       .post(apiRoutes.register, credentialData)
       .then((response) => {
@@ -121,7 +117,7 @@ class Register extends React.Component<Props, States> {
           this.setState({ loginRedirect: "User account created successfully!" })
         } else {
           this.setState({ error: response.data.reason })
-        }
+        } 
       })
       .then(() => {
         this.setState({ isLoading: false })
@@ -234,7 +230,7 @@ class Register extends React.Component<Props, States> {
                 />
               </div>
 
-              <div className='input-sign-up'>
+{/*               <div className='input-sign-up'>
                 <IonInput
                   type='text'
                   name='email'
@@ -255,7 +251,7 @@ class Register extends React.Component<Props, States> {
                   value={this.state.nickname}
                   onIonChange={this.onChangeHandler}
                 />
-              </div>{/* 
+              </div> */}{/* 
               <small style={{ position: 'relative', top: '-15px', left: '15px', marginBottom: '15px' }}>We will be addressing you by this name</small> */}
               <div className='term-and-conditions text-center'>
                 <div>

@@ -1,8 +1,67 @@
 /* Calendar css */
 .rbc-calendar .rbc-toolbar .rbc-toolbar-label {
     text-align: right;
+    padding:0px;
+    font-family:'Product-Sans-Regular'!important;
+}
+.rbc-calendar{
+    margin-top: 5.5rem;
+}
+.rbc-calendar span,.rbc-calendar a{
+    font-family:'Product-Sans-Regular'!important;
+}
+.rbc-header{
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+    font-size: 16px;
+    border: none;
+}
+.rbc-header + .rbc-header {
+    border-left: none;
+}
+.rbc-month-row{
+    border:none;
+    overflow: visible;
+}
+.rbc-month-row + .rbc-month-row {
+    border:none;
+    overflow: visible;
+}
+.rbc-month-view{
+    border: none;
+    overflow: visible;
+}
+.rbc-row-bg{
+    display: none;
+}
+.rbc-row-segment {
+    padding: none;
 }
 
+.rbc-date-cell {
+    text-align: center;
+    font-size: 16px;
+}
+.rbc-event{
+    border-radius: 50%;
+    border:none;
+    color: #b5edf179;
+    padding: 13px 5px;
+    margin-top: -2rem;
+    background:#a2f2f848;
+    font-weight: 400;
+    z-index: 999;
+}
+.rbc-event:hover{
+    border: none;
+    margin-top: -1.2rem;
+    color: #B5EDF1;
+    background:#b5edf193;
+    margin-top: -2rem;
+    font-weight: 400;
+    z-index: 999;
+}
 /* Context menu css */
 .react-contextmenu {
     background-color: #fff;

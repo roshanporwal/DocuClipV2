@@ -224,13 +224,38 @@ export default class ChangeInfo extends React.Component<props, states> {
 
     this.setState({ [name]: value } as any)
   }
-
+  getAge = (dateString:string) => {
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+  }
   onAdditionalChangeHandler = (event: any) => {
     const name: string = event.target.name
     const value: string = event.target.value
 
     this.setState({additionalData :{ ...this.state.additionalData,[name]: value }} as any)
-    console.log(this.state.additionalData)
+
+    if(this.state.additionalData.DOB != ""){
+      let age =  this.getAge(this.state.additionalData.DOB);
+      this.setState({additionalData :{ ...this.state.additionalData,AgeinYear: age}} as any)
+      console.log(this.state.additionalData);
+    }
+  }
+
+  
+  showMail(){
+    let mail = this.state.email
+    if(mail.search(/'not_uploaded'/))
+    {
+      return "Not Uploaded";
+    }
+
+    return this.state.email;
   }
 
   render() {
@@ -275,7 +300,7 @@ export default class ChangeInfo extends React.Component<props, states> {
             <IonInput
               type='text'
               name='email'
-              value={this.state.email}
+              value={this.showMail()}
               onIonChange={this.onChangeHandler}
             />
           </IonItem>
@@ -383,7 +408,7 @@ export default class ChangeInfo extends React.Component<props, states> {
             <IonDatetime
                 style={{width: "100%"}}
                 displayFormat="MMMM DD, YYYY"
-                min="1980"
+                min="1950"
                 max="2022"
                 name='DOB'
                 value={this.state.additionalData.DOB}

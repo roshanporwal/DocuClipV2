@@ -3,12 +3,12 @@
 
 
 //for api server
-const baseUrl = 'https://docuclip.app/ci4-dms-updated/public/api/'
+//const baseUrl = 'https://docuclip.app/ci4-dms-updated/public/api/'
 
 //For usb debugging
 //const baseUrl = 'http://localhost:8000/docuclip.app/ci4-dms-updated/public/api/'
 //for desktop 
-//const baseUrl = 'http://localhost/docuclip.app/ci4-dms-updated/public/api/'
+const baseUrl = 'http://localhost/docuclip.app/ci4-dms-updated/public/api/'
 
 const apiRoutes = {
   fileInfo        : baseUrl + 'fileretrivalapi/fileinfo',

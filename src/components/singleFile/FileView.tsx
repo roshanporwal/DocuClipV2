@@ -114,6 +114,8 @@ class FileView extends React.Component<props, states> {
   }
 
   componentDidMount() {
+  console.log(this.state.tags);
+
     let tagsJson: Array<string> = this.props.metadata.tags
     let emailsJson: Array<string> = this.props.file.sharePhones
 
@@ -299,7 +301,6 @@ class FileView extends React.Component<props, states> {
         })
     }
   }
-
   viewClickHandler = () => {
     this.setState({ isLoading: true })
     console.log(this.props.file)
@@ -650,7 +651,7 @@ class FileView extends React.Component<props, states> {
               <div className='singleFile-card-item'>
                 <span>Size</span>
                 <p>
-                  {Math.round(this.props.metadata.size / (1024 * 1024 * 8))} mb
+                  {this.props.metadata.size / (1024 * 8)} kb
                 </p>
               </div>
 
@@ -670,12 +671,6 @@ class FileView extends React.Component<props, states> {
                 <span>Tags</span>
                 <div className='tag-container'>{this.state.tags}</div>
               </div>
-
-              <div className='singleFile-card-item'>
-                <span>Who has access</span>
-                <div className='tag-container'>{this.state.emails}</div>
-              </div>
-
               {this.state.additionalInfo}
             </div>
             <div

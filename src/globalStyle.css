@@ -10,6 +10,12 @@
   font-weight: normal;
   src: url('./assets/fonts/Archivo-Regular.ttf');
 }
+@font-face {
+  font-family: 'Product-Sans-Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url('./assets/fonts/Product-Sans-Regular.ttf');
+}
 
 *,body,p,h1,h2,h3,h4,h5,span,label {/* 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */

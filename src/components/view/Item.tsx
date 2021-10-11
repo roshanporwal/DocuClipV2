@@ -335,7 +335,8 @@ const Item: React.FC<props> = (props) => {
     // throw this error if internet is not available
     const { Network } = Plugins
     let status = await Network.getStatus()
-
+    
+    const { Filesystem } = Plugins
     if (status.connected === false) {
       setError("Cannot connect to the internet. Unable to share file")
       setLoading(false)
@@ -350,37 +351,83 @@ const Item: React.FC<props> = (props) => {
       filename += "." + props.metadata.ext
     }
 
-    const formData = new FormData()
-    formData.append("filePath", props.path)
-    formData.append("filename", props.fileName)
-    formData.append("ext", props.metadata.ext)
-    axios
-      .post(apiRoutes.fileDownload, formData)
-      .then((response) => {
-        const { status } = response.data
-        if (status === "success") {
-          Plugins.FileSharer.share({
-            filename: filename,
-            base64Data: response.data.data,
-            contentType: response.data.contentType,
+    if(props.metadata.is_local == true){
+    
+      const uniqueFilename = props.publicName.substr(0, 8) + "_" + props.fileName
+      let contentType: string
+      
+
+      Filesystem.readFile({
+        path: "docuclip/" + uniqueFilename,
+        directory: FilesystemDirectory.Documents,
+      }).then(() => {
+        // file exists and is downloaded, now open the file
+        Filesystem.getUri({
+          directory: FilesystemDirectory.Documents,
+          path: "docuclip/" + uniqueFilename,
+        }).then(
+          (getUriResult) => {
+            const path = getUriResult.uri
+            // get content type of that file
+            FilePath.resolveNativePath(path).then((filePath ) => {
+              File.resolveLocalFilesystemUrl(filePath).then((fileInfo) => {
+                let files = fileInfo as FileEntry;
+                files.file((meta) => {
+                  contentType = meta.type
+                });
+              })
+            })
+            Plugins.FileSharer.share({
+              filename: filename,
+              path:path,
+              contentType: contentType,
+            })
+              .then(() => {
+                // ignore
+              })
+              .catch((error: any) => {
+                console.error("File sharing failed", error.message)
+              })
+          },
+          (error) => {
+            console.log("Verbose filesystem get error", error)
           })
-            .then(() => {
-              // ignore
+        })
+    }
+    else{
+      const formData = new FormData()
+      formData.append("filePath", props.path)
+      formData.append("filename", props.fileName)
+      formData.append("ext", props.metadata.ext)
+      axios
+        .post(apiRoutes.fileDownload, formData)
+        .then((response) => {
+          const { status } = response.data
+          if (status === "success") {
+            Plugins.FileSharer.share({
+              filename: filename,
+              base64Data: response.data.data,
+              contentType: response.data.contentType,
             })
-            .catch((error: any) => {
-              console.error("File sharing failed", error.message)
-            })
-        } else {
-          console.error("File sharing failed", response.data.error)
-        }
-      })
-      .then(() => setLoading(false))
-      .catch((error) => {
-        // handle error
-        console.error("File sharing failed", error)
-        setLoading(false)
-      })
-      .then(() => setLoading(false))
+              .then(() => {
+                // ignore
+              })
+              .catch((error: any) => {
+                console.error("File sharing failed", error.message)
+              })
+          } else {
+            console.error("File sharing failed", response.data.error)
+          }
+    })
+    .then(() => setLoading(false))
+    .catch((error) => {
+      // handle error
+      console.error("File sharing failed", error)
+      setLoading(false)
+    })
+    .then(() => setLoading(false))
+    
+    }
   }
 
   const fileInfoClickHandler = async () => {
@@ -518,7 +565,7 @@ const Item: React.FC<props> = (props) => {
             {props.showCategoryTitle === true ? (
               <span className='heading'>
                 <b>{infoArray[0]}</b>
-                {typeof(infoArray[1]) !== 'undefined' ? <React.Fragment> ({infoArray[1]})</React.Fragment> : null}
+                {typeof(infoArray[1]) !== 'undefined' ? <React.Fragment> /{infoArray[1]}</React.Fragment> : null}
               </span>
             ) : null}
 
@@ -533,14 +580,14 @@ const Item: React.FC<props> = (props) => {
                   <div>{infoArray[2]}</div>
                   <div>{infoArray[3]}</div>
                   <div style={{fontSize:"9px",color:"#787878"}}>
-                    {infoArray[4]} 
+                    {infoArray[4]} &nbsp;
                     {infoArray[5]}
                   </div>
                </div>
             )}
           </div>
-          <div className='file-options'>
-            <p>{(props.fileSize / 1000000).toFixed(2)} mb</p>
+          </div>
+          <div className='file-options'>  
             <button className='options-button'>
               <IonIcon
                 icon={ellipsisVerticalOutline}
@@ -548,7 +595,6 @@ const Item: React.FC<props> = (props) => {
               />
             </button>
           </div>
-        </div>
         {/* <div className='file-additional-details' onClick={itemClickHandler}>
           <span>{props.fileName}</span>
           <p>{props.uploadedAt}</p>
@@ -559,25 +605,3 @@ const Item: React.FC<props> = (props) => {
 }
 
 export default Item
-
-
-              {/* <table>
-                <tbody>
-                  <tr>
-                    <td>
-                      <p>{infoArray[2]}</p>
-                    </td>
-                    <td>
-                      <p>{infoArray[3]}</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p>{infoArray[4]}</p>
-                    </td>
-                    <td>
-                      <p>{infoArray[5]}</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table> */}

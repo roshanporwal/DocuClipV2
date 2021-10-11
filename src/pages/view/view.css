@@ -100,12 +100,12 @@
   box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.17), 0px 3.28515px 6.5703px rgba(0, 0, 0, 0.117297),
               0px 1.59488px 3.18976px rgba(0, 0, 0, 0.0945694), 
               0px 0.781839px 1.56368px rgba(0, 0, 0, 0.0754306), 0px 0.30914px 0.618281px rgba(0, 0, 0, 0.0527031);
-  width: 95%;
+  width: 100%;
   height: 120px;
   margin: 0.6rem 0 0 0;
 }
 
-.list-item { 
+.list-item {
   display: flex;
   flex-direction: row;
 }
@@ -157,16 +157,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
+  flex-basis: 80%;
   width: 100%;
-
   margin: 5px 0;
 }
 
 
 .file-list .list-item .file-icon {
   width: 25%;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,10 +175,8 @@
 }
 
 .file-list .list-item .file-info {
-  width: 55%;
 
-  padding-top: 20px;
-
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -203,19 +199,15 @@
 
   margin: 3px 0;
 }
-
-.file-list .list-item .file-options {
-  width: 20%;
-
+.file-options {
+  width: 10%;
   z-index: 10;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding-right: 1rem;
+  margin-top: -3rem;
+  float: right;
 }
 
-.file-list .list-item .file-options p {
+.file-options p {
   font-size: 14px;
 }
 
@@ -243,10 +235,6 @@
 
   font-size: 32 !important;
   font-weight: bold;
-
-  padding: 15px;
-
-  border-radius: 25px !important;
 
   outline: none;
 }

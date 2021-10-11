@@ -272,7 +272,7 @@ class Calendar extends React.Component<props, states> {
         }
 
         const tempObj: any = {
-          title: eventName,
+          title: '.',
           start: Date.parse(file.eventOn),
           end: Date.parse(file.eventOn),
           allDay: true,
@@ -287,7 +287,7 @@ class Calendar extends React.Component<props, states> {
 
         if (file.eventEnd && file.metadata.category === "Travel Bookings") {
           const tempObj: any = {
-            title: eventName,
+            title: '.',
             start: Date.parse(file.eventEnd),
             end: Date.parse(file.eventEnd),
             allDay: true,
@@ -313,7 +313,7 @@ class Calendar extends React.Component<props, states> {
         views={["month"]}
         startAccessor='start'
         endAccessor='end'
-        style={{ height: "75vh" }}
+        style={{ height: "52vh"}}
         components={{ event: Event }}
         selectable={true}
         onSelectSlot={(slotInfo) => {
@@ -349,9 +349,9 @@ class Calendar extends React.Component<props, states> {
             },
           ]}
         />
-
+        <div className="calendar">
         {this.state.calendar}
-
+        </div>
         <ConnectMenu />
       </div>
     )
