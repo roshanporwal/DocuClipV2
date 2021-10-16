@@ -104,12 +104,12 @@ export default class UserDetails extends React.Component<props, states> {
 
   showMail(){
     let mail = this.props.details.userEmail
-    if(mail.search(/'not_uploaded'/))
+    if(mail.search(/'not_uploaded'/) == -1)
     {
-      return "Not Uploaded";
+      return this.props.details.userEmail;
     }
+      return "Not Uploaded";
 
-    return this.props.details.userEmail;
   }
   
   render() {

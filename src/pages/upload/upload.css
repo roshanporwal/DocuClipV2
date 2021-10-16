@@ -31,8 +31,10 @@
     margin-bottom: 10rem;
 }
 
-
-
+.upload{
+    padding-top: 40%;
+    padding-bottom: 60%;
+}
 
 .custom-file-input {
     position: relative;

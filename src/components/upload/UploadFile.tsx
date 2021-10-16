@@ -1,5 +1,5 @@
 import React from "react";
-import { IonRow, IonCol, IonButton, IonAlert } from "@ionic/react";
+import { IonRow, IonCol, IonButton, IonAlert, IonModal } from "@ionic/react";
 
 // import axios and api routes
 import axios from "axios";
@@ -14,11 +14,13 @@ import {
   Plugins,
 } from "@capacitor/core"
 import { now } from "moment";
+import { Server } from "http";
 
 type props = {
   parentSetState: any;
 };
 type states = {
+  isModalOpen:boolean;
   size:any;
   file: any;
   file_content:any,
@@ -31,6 +33,7 @@ class UploadFile extends React.Component<props, states> {
     super(props);
 
     this.state = {
+      isModalOpen:false,
       size:null,
       file: null,
       file_content:null,
@@ -169,6 +172,26 @@ class UploadFile extends React.Component<props, states> {
 
   render() {
     return (
+      <>
+      <IonAlert
+          isOpen={this.state["isModalOpen"]}
+          message={'Choose Your Saving Format'}
+          buttons={[
+            {
+              text: "Save",
+              handler: () => {
+                this.uploadLocalClickHandler()
+              },
+            },
+            {
+              text:'Push to Server',
+              handler:() =>{
+                this.uploadClickHandler()
+              }
+            }
+          ]}
+        />
+
       
       <div className="vertically-center">
         <div className="text-center">
@@ -192,18 +215,21 @@ class UploadFile extends React.Component<props, states> {
         </IonRow>
 
         <IonRow>
-          <IonCol>
-            <div className="text-center"> 
-              <button onClick={this.uploadClickHandler} className="upload-button">
+          <IonCol className="text-center">
+            <button onClick={() =>{
+              if (!this.state.file) {
+                this.props.parentSetState("isLoading", false);
+                this.props.parentSetState("error", "Please select a file to upload");
+                return;
+              }
+                this.setState({isModalOpen:true})
+              }} className="upload-button">
                 Upload
               </button>
-              <button onClick={this.uploadLocalClickHandler} className="upload-button" style={{marginLeft:"20px"}}>
-                Upload Locally
-              </button>
-            </div>
           </IonCol>
         </IonRow>
       </div>
+      </>
     );
   }
 }

@@ -54,12 +54,12 @@ export default class ChangeInfo extends React.Component<props, states> {
 
     const { userEmail, userName, fullname, nickname } = getToken()    
     let add_data = localStorage.getItem('Additional Data');
-  
     if(add_data){
       let {Address1,Address2,City,State,Father,Spouce,Email,PAN,AadhaarCard,DOB,AgeinYear,Vehicle,BloodGroup} = JSON.parse(add_data);
+    
         this.state = {
             username: userName,
-            email: userEmail,
+            email: userEmail.search(/'not_uploaded'/) == -1 ? userEmail : "Not Uploaded",
             fullname: fullname,
             nickname: nickname,
             error: "",
@@ -84,7 +84,7 @@ export default class ChangeInfo extends React.Component<props, states> {
     else{
       this.state = {
         username: userName,
-        email: userEmail,
+        email: userEmail.search('not_uploaded') ==-1 ?  userEmail : "Not Uploaded",
         fullname: fullname,
         nickname: nickname,
         error: "",
@@ -106,7 +106,8 @@ export default class ChangeInfo extends React.Component<props, states> {
       }
     }
     }
-  
+    
+    
   }
 
   submitClickHandler = () => {
@@ -247,16 +248,6 @@ export default class ChangeInfo extends React.Component<props, states> {
     }
   }
 
-  
-  showMail(){
-    let mail = this.state.email
-    if(mail.search(/'not_uploaded'/))
-    {
-      return "Not Uploaded";
-    }
-
-    return this.state.email;
-  }
 
   render() {
     const inputFieldStyle = {
@@ -300,7 +291,7 @@ export default class ChangeInfo extends React.Component<props, states> {
             <IonInput
               type='text'
               name='email'
-              value={this.showMail()}
+              value={this.state.email}
               onIonChange={this.onChangeHandler}
             />
           </IonItem>

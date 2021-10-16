@@ -64,7 +64,7 @@ class Upload extends React.Component<props, state> {
           onDidDismiss={() => this.setState({ isLoading: false })}
           message={"Please wait..."}
         />
-
+        
         <div className="upload-content-container">
           <div className="row-vertical">
             <div className="upload-container">
