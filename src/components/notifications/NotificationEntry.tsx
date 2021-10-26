@@ -36,8 +36,8 @@ class NotificationEntry extends React.Component<props, states> {
     super(props)
 
     const titleObj = {
-      ACCEPT_SHARE: "File shared with you",
-      SHARE_NOTIFY: "File shared with you",
+      ACCEPT_SHARE: "File shared ",
+      SHARE_NOTIFY: "File shared ",
     }
     let title: string = "Unknown action"
 

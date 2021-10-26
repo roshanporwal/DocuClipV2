@@ -178,7 +178,7 @@ class UploadFile extends React.Component<props, states> {
           message={'Choose Your Saving Format'}
           buttons={[
             {
-              text: "Save",
+              text: "Save Local",
               handler: () => {
                 this.uploadLocalClickHandler()
               },

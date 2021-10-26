@@ -285,7 +285,7 @@ class Calendar extends React.Component<props, states> {
         // append the event to all events list
         myEventsList.push(tempObj)
 
-        if (file.eventEnd && file.metadata.category === "Travel Bookings") {
+        /* if (file.eventEnd && file.metadata.category === "Travel Bookings") {
           const tempObj: any = {
             title: '.',
             start: Date.parse(file.eventEnd),
@@ -299,7 +299,7 @@ class Calendar extends React.Component<props, states> {
 
           // append the event to all events list
           myEventsList.push(tempObj)
-        }
+        } */
       }
     })
 

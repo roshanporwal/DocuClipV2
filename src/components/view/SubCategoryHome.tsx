@@ -272,9 +272,11 @@ class SubCategoryHome extends React.Component<props, states> {
           if (
             Object.prototype.hasOwnProperty.call(additionalFields, property)
           ) {
-            if (
+            if (/* 
               additionalFields[property].title.toLowerCase() ===
-              this.state.selectedCategory.toLowerCase()
+              this.state.selectedCategory.toLowerCase() */
+              additionalFields[property].title ===
+              this.state.selectedCategory
             ) {
               subCategories = additionalFields[property].subCategory
             }

@@ -32,6 +32,7 @@ type states = {
               State : any,
               Father : any, 
               Spouce : any,
+              Email :any,
               PAN : any,
               AadhaarCard : any,
               DOB : any,
@@ -70,6 +71,7 @@ export default class UserDetails extends React.Component<props, states> {
               State : {value:State,icon:StateIcon},
               Father : {value:Father,icon:FatherIcon}, 
               Spouce : {value:Spouce,icon:SpouceIcon},
+              Email:{value:Email,icon:MailIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
               DOB : {value:DOB,icon:DOBIcon},
@@ -87,6 +89,7 @@ export default class UserDetails extends React.Component<props, states> {
               State : {value: "",icon:StateIcon},
               Father : {value: "",icon:FatherIcon}, 
               Spouce : {value: "",icon:SpouceIcon},
+              Email:{value:"",icon:MailIcon},
               PAN : {value: "",icon:CardIcon},
               AadhaarCard : {value: "",icon:AadharIcon},
               DOB : {value: "",icon:DOBIcon},
@@ -133,21 +136,21 @@ export default class UserDetails extends React.Component<props, states> {
             <p>{this.props.details.userName}</p>
           </div>
         </div>
-        <div className='profile-card-item'>
+        {/* <div className='profile-card-item'>
           <img src={MailIcon} width="28px"/>
           <div className="details"> 
             <span>Email Address</span>
             <p>{this.showMail()}</p>
           </div>
         </div>
-
-        <div className='profile-card-item'>
+ */}
+        {/* <div className='profile-card-item'>
           <img src={NameIcon} />
           <div className="details"> 
             <span>Nick name</span>
             <p>{this.props.details.nickname}</p>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="subDetails">
 

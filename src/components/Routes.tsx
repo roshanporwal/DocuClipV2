@@ -26,6 +26,7 @@ const apiRoutes = {
   checkOwnership  : baseUrl + 'filetransferapi/check_ownership',
   listAll         : baseUrl + 'fileretrivalapi/listall',
   deleteFile      : baseUrl + 'fileretrivalapi/delete',
+  deleteAccount   : baseUrl + 'UserDelete',
   login           : baseUrl + 'login',
   terms           : baseUrl + 'terms',
   sendOtp         : baseUrl + 'sendotp',

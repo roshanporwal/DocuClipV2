@@ -23,6 +23,8 @@ import {
     calendarSharp,
     qrCodeOutline,
     qrCodeSharp,
+    trashBin,
+    trashBinSharp,
     // cardOutline,
     // cardSharp
 } from 'ionicons/icons';
@@ -73,6 +75,12 @@ const appPages: AppPage[] = [
     url: '/logout',
     iosIcon: logOutOutline,
     mdIcon: logOutSharp
+  },
+  {
+    title: 'Delete Account',
+    url: '/profile/delete-account',
+    iosIcon: trashBin,
+    mdIcon: trashBinSharp,
   }
 ];
 
@@ -92,8 +100,7 @@ const Menu: React.FC = () => {
               <IonMenuToggle autoHide={false}>
                 <IonItem routerLink='/profile' routerDirection="none" lines="none" detail={false}>
                   <div className="menu-title">
-                    <IonListHeader class="ion-text-capitalize">{token.nickname}</IonListHeader>
-                    <IonNote>{token.userEmail}</IonNote>
+                    <IonListHeader class="ion-text-capitalize">Actions</IonListHeader>
                   </div>
                 </IonItem>
               </IonMenuToggle>

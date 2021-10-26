@@ -11,7 +11,7 @@ const SubCategoryItem: React.FC<props> = (props) => {
         i.e. the current component
     */
   const clickHandler = () => {
-    let urlName = props.title.toLowerCase();
+    let urlName = props.title;
     urlName = urlName.replace(" ", "_");
     const currentUrl = window.location.href 
     window.location.href = currentUrl + `/${urlName}`

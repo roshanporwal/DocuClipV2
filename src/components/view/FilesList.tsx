@@ -53,8 +53,7 @@ type FileListResponse = {
 const UpcomingTravelsHeader: React.FC = () => {
   return (
     <React.Fragment>
-      <h4 style={{ margin: "auto" }}>Upcoming Travels</h4>
-      <div style={{ borderBottom: "1px solid #ccc" }} />
+      <h6 style={{ textAlign:'left',color:'gray' }}>Upcoming Travels</h6>
     </React.Fragment>
   )
 }
@@ -62,8 +61,7 @@ const UpcomingTravelsHeader: React.FC = () => {
 const PastTravelsHeader: React.FC = () => {
   return (
     <React.Fragment>
-      <h4 style={{ margin: "auto" }}>Past Travels</h4>
-      <div style={{ borderBottom: "1px solid #ccc" }} />
+      <h6 style={{ margin: "left",color:'gray' }}>Past Travels</h6>
     </React.Fragment>
   )
 }
@@ -115,7 +113,7 @@ class FilesList extends React.Component<Props, States> {
       const postResponse = await Axios.post(apiRoutes.getCategories).then(
         async (response) => {
           const { Filesystem } = Plugins
-
+          console.log(response.data);
           try {
             await Filesystem.writeFile({
               path: "structure.txt",

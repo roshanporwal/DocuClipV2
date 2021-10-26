@@ -19,9 +19,10 @@ type notifications = {
 
 type props = {}
 type states = {
-  notifications: Array<notifications> | null
+  notifications: Array<notifications>
   isStructureNotFound: boolean
-  subCategoryStructure: any
+  subCategoryStructure: any,
+  notificationcount:any,
 }
 
 type SubCategoryResponse = {
@@ -36,9 +37,10 @@ class Notifications extends React.Component<props, states> {
     if (!isLoggedIn()) window.location.replace("/")
 
     this.state = {
-      notifications: null,
+      notifications: [],
       isStructureNotFound: false,
       subCategoryStructure: null,
+      notificationcount:0,
     }
   }
 
@@ -68,13 +70,15 @@ class Notifications extends React.Component<props, states> {
     Axios.post(apiRoutes.notifications.get, formData)
       .then((response) => {
         if (response.data.status === "success") {
-          this.setState({ notifications: response.data.notifications })
+          console.log('response',response.data.notifications)
+          this.setState({ notifications: response.data.notifications, notificationcount: response.data.count})
         }
+
       })
       .catch((error) => {
         console.log("error: ", error)
       })
-  }
+}
 
   async getCategoryStructure(): Promise<SubCategoryResponse> {
     const { Network } = Plugins
@@ -116,25 +120,28 @@ class Notifications extends React.Component<props, states> {
 
       return postResponse
     }
+  
   }
 
   render() {
     return (
       <div className='container'>
-        <div
-          style={{
-            textAlign: "center",
-            position: "fixed",
-            width: "85%",
-            marginTop: "7rem"
-          }}
-        >
-          No Notifications
 {/*            <NotificationEntry id="12" action="SHARE_NOTIFY"  text="This is a test Notification"  public_name="Dine Out Notification" />
  */}
-        </div>
-        {this.state.notifications
-          ? this.state.notifications.map((notification: notifications) => {
+        
+        {(this.state.notificationcount === 0) ? (
+                  <div
+                    style={{
+                      textAlign: "center",
+                      position: "fixed",
+                      width: "85%",
+                      marginTop: "7rem"
+                    }}
+                  >
+                    No Notification
+                  </div>)
+            : (this.state.notifications.map((notification: notifications) => {
+
               return (
                 <NotificationEntry
                   key={notification.id}
@@ -145,8 +152,7 @@ class Notifications extends React.Component<props, states> {
                 // subCategoryStructure={this.state.subCategoryStructure}  //not required
                 />
               )
-            })
-          : null}
+            }))}
       </div>
     )
   }

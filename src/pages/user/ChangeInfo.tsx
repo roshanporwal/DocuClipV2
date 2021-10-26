@@ -285,7 +285,7 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onChangeHandler}
             />
           </IonItem>
-
+{/* 
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Email</IonLabel>
             <IonInput
@@ -294,7 +294,7 @@ export default class ChangeInfo extends React.Component<props, states> {
               value={this.state.email}
               onIonChange={this.onChangeHandler}
             />
-          </IonItem>
+          </IonItem> */}
 
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Fullname</IonLabel>
@@ -306,7 +306,7 @@ export default class ChangeInfo extends React.Component<props, states> {
             />
           </IonItem>
 
-          <IonItem style={inputFieldStyle}>
+          {/* <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Nickname</IonLabel>
             <IonInput
               type='text'
@@ -314,7 +314,7 @@ export default class ChangeInfo extends React.Component<props, states> {
               value={this.state.nickname}
               onIonChange={this.onChangeHandler}
             />
-          </IonItem>
+          </IonItem> */}
           {/* Additional Fields */}
           <div className="center additional-data">
             <div className="text-center">
@@ -373,6 +373,15 @@ export default class ChangeInfo extends React.Component<props, states> {
               type='text'
               name='Spouce'
               value={this.state.additionalData.Spouce}
+              onIonChange={this.onAdditionalChangeHandler}
+            />
+          </IonItem>
+          <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Email</IonLabel>
+            <IonInput
+              type='text'
+              name='Email'
+              value={this.state.additionalData.Email}
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>

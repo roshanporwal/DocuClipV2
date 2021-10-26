@@ -26,6 +26,7 @@ import SubCategoryHome from './components/view/SubCategoryHome'
 import UploadSuccess from './components/upload/UploadSuccess'
 import OtpVerify from './pages/auth/OtpVerify'
 import ShareInfo from './pages/user/ShareInfo'
+import DeleteUser from './pages/user/DeleteUser'
 
 const Routes: React.FC = () => {
   const locationPath = window.location.pathname
@@ -59,6 +60,13 @@ const Routes: React.FC = () => {
               exact
               render={() => {
                 return <MenuTemplate name={"Edit Info"} component={<ChangeInfo />} />
+              }}
+            />
+            <Route
+              path='/profile/delete-account'
+              exact
+              render={() => {
+                return <MenuTemplate name={"Delete Account"} component={<DeleteUser />} />
               }}
             />
             {/* Share Profile Info */}

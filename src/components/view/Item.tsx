@@ -60,7 +60,7 @@ const Item: React.FC<props> = (props) => {
   const [isDeleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [isPopOverOpen, setPopOverOpen] = useState<boolean>(false)
   const [infoArray, setInfoArray] = useState<Array<string>>([])
-
+  const { Share } = Plugins;
   useEffect(() => {
     getCategoryStructure()
       .then((data) => data.additionalFields)
@@ -243,7 +243,7 @@ const Item: React.FC<props> = (props) => {
               return response.data
             } else {
               console.log("Verbose error: ", response.data)
-              throw new Error(response.data.error)
+              setError(response.data.error)
             }
           })
           .then((response: DownloadData) => {
@@ -265,6 +265,8 @@ const Item: React.FC<props> = (props) => {
                   })
                   .catch((error) => {
                     console.log("Verbose error: ", error)
+                      setError(error)
+
                   })
               })
           })
@@ -307,6 +309,7 @@ const Item: React.FC<props> = (props) => {
               .catch((error) => {
                 console.log(path)
                 console.log("Verbose opening file error", error)
+              setError(error)
 
                 // throw this error if app to open file is not found
                 if (error.status === 9) {
@@ -316,12 +319,14 @@ const Item: React.FC<props> = (props) => {
           },
           (error) => {
             console.log("Verbose filesystem get error", error)
+              setError(error)
           }
         )
       })
       .catch((error) => {
         // print the errors
         console.log("Error", error)
+        setError(error)
       })
       .then(() => {
         setLoading(false)
@@ -331,6 +336,8 @@ const Item: React.FC<props> = (props) => {
   const shareClickHandler = async () => {
     setPopOverOpen(false)
     setLoading(true)
+    let contentType: string
+
     // FIXME: add feature to read file from phone when available to share instead of download
     // throw this error if internet is not available
     const { Network } = Plugins
@@ -350,51 +357,66 @@ const Item: React.FC<props> = (props) => {
     ) {
       filename += "." + props.metadata.ext
     }
-
-    if(props.metadata.is_local == true){
+    if(props.metadata.is_local == 'true'){
     
       const uniqueFilename = props.publicName.substr(0, 8) + "_" + props.fileName
-      let contentType: string
-      
 
       Filesystem.readFile({
         path: "docuclip/" + uniqueFilename,
         directory: FilesystemDirectory.Documents,
-      }).then(() => {
-        // file exists and is downloaded, now open the file
-        Filesystem.getUri({
-          directory: FilesystemDirectory.Documents,
-          path: "docuclip/" + uniqueFilename,
-        }).then(
-          (getUriResult) => {
+      }).then((data) => {
+        // file exists and is downloaded, now get its location
+          Filesystem.getUri({
+            directory: FilesystemDirectory.Documents,
+            path: "docuclip/" + uniqueFilename,
+          }).then(
+            async (getUriResult) => {
             const path = getUriResult.uri
-            // get content type of that file
-            FilePath.resolveNativePath(path).then((filePath ) => {
-              File.resolveLocalFilesystemUrl(filePath).then((fileInfo) => {
-                let files = fileInfo as FileEntry;
-                files.file((meta) => {
-                  contentType = meta.type
-                });
+              FilePath.resolveNativePath(path).then((filePath ) => {
+                console.log('filepath',filePath);
+
+                File.resolveLocalFilesystemUrl(filePath).then((fileInfo) => {
+//get content type
+                  let files = fileInfo as FileEntry;
+                  files.file((meta) => {
+                    contentType = meta.type;
+                  
+
+                  //after getting location tell the system to share
+                    Plugins.FileSharer.share({
+                      filename: filename,
+                      base64Data: data.data,
+                      contentType: contentType,
+                    })
+                    .then(() => {
+                      // ignore
+                    })
+                    .catch((error: any) => {
+                      console.error("File sharing failed", error.message)
+                    })
+                  });
+                })
               })
-            })
-            Plugins.FileSharer.share({
-              filename: filename,
-              path:path,
-              contentType: contentType,
-            })
-              .then(() => {
-                // ignore
-              })
-              .catch((error: any) => {
-                console.error("File sharing failed", error.message)
-              })
-          },
-          (error) => {
-            console.log("Verbose filesystem get error", error)
-          })
-        })
+              /* console.log(path)
+              await Share.share({
+                  title: filename,
+                  text: filename,
+                  url: path,
+              }) */
+              setLoading(false)
+              
+            });
+      }).catch((error) => {
+          console.log("Verbose filesystem get error", error)
+          setError(error);
+          setLoading(false)
+
+      })
     }
     else{
+     console.log("in server item")
+
+
       const formData = new FormData()
       formData.append("filePath", props.path)
       formData.append("filename", props.fileName)
@@ -557,9 +579,9 @@ const Item: React.FC<props> = (props) => {
       <div className='file-item-container'>
         <div className='list-item'>
           <div className='file-icon' onClick={itemClickHandler}>
-            <IonIcon src={documentOutline} size="large" />
-            {/* 
-            <img src={extImg} alt={props.ext} width='58' height='58' /> */}
+            {/* <IonIcon src={documentOutline} size="large" /> */}
+            
+            <img src={extImg} alt={props.ext} width='58' height='58' />
           </div>
           <div className='file-info' onClick={itemClickHandler}>
             {props.showCategoryTitle === true ? (

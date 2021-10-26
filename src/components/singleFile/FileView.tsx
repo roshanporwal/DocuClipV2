@@ -16,9 +16,11 @@ import axios from "axios"
 // import components and extension mapping
 import mapping from "../../ExtensionMapping"
 import TagComponent from "./TagComponent"
-import { FilesystemDirectory, Plugins } from "@capacitor/core"
+import { Filesystem, FilesystemDirectory, Plugins } from "@capacitor/core"
 import { getToken } from "../login/TokenProvider"
 import { FileOpener } from "@ionic-native/file-opener"
+import { FilePath } from "@ionic-native/file-path"
+import { File, FileEntry } from "@ionic-native/file"
 
 /**
  * 
@@ -64,7 +66,7 @@ type props = {
 }
 type states = {
   file: File | null
-  tags: any
+  tags: Array<JSX.Element>
   emails: any
   additionalInfo: any
   extImg: string
@@ -95,7 +97,7 @@ class FileView extends React.Component<props, states> {
 
     this.state = {
       file: null,
-      tags: "",
+      tags: [],
       emails: "",
       additionalInfo: null,
       extImg: "",
@@ -114,7 +116,6 @@ class FileView extends React.Component<props, states> {
   }
 
   componentDidMount() {
-  console.log(this.state.tags);
 
     let tagsJson: Array<string> = this.props.metadata.tags
     let emailsJson: Array<string> = this.props.file.sharePhones
@@ -125,22 +126,25 @@ class FileView extends React.Component<props, states> {
     // read for tags and display tags in their component
     // if none, display "No Tags"
     let noTags: boolean
-    tagsJson = tagsJson ? tagsJson : []
-    tagsJson.length === 1 && tagsJson[0] === ""
-      ? (noTags = true)
-      : (noTags = false)
-    tagsJson.forEach((tag: string) => {
-      if (!!noTags) {
+    tagsJson = tagsJson ? tagsJson : [];
+    (tagsJson.length === 1 && tagsJson[0] === "" ) ? (noTags = true) : (noTags = false) ;
+    
+    if (noTags) {
         tags.push(
           <TagComponent key={Date.now() + Math.random()} tagTitle={"No Tags"} />
         )
-      } else {
-        tags.push(
-          <TagComponent key={Date.now() + Math.random()} tagTitle={tag} />
-        )
       }
-    })
-
+    else {
+      tagsJson.forEach((tag: string) => {
+        console.log(tag)
+        
+          tags.push(
+            <TagComponent key={Date.now() + Math.random()} tagTitle={tag} />
+          )
+      })
+    }
+      this.setState({tags:tags});
+    
     // check to see if the file is public or restricted
     // if restricted, then show the emails of users who have access
     let noAccess: boolean
@@ -237,10 +241,10 @@ class FileView extends React.Component<props, states> {
               hasFile: true,
               oldFile: response.data.public_name,
             })
-          }
+          }/* 
           this.setState({
             tags: response.data.owner,
-          })
+          }) */
         }
       })
     }
@@ -261,15 +265,14 @@ class FileView extends React.Component<props, states> {
         if (response.data.status === "success") {
           this.setState({
             file: this.props.file,
-            tags: tags,
             emails: emails,
             additionalInfo: items,
             extImg: response.data.path,
             isLoading: false,
           })
-
           this.props.finishLoading()
         }
+
         return
       })
     }
@@ -290,7 +293,6 @@ class FileView extends React.Component<props, states> {
         .then(() => {
           this.setState({
             file: this.props.file,
-            tags: tags,
             emails: emails,
             additionalInfo: items,
             extImg: image!,
@@ -300,6 +302,9 @@ class FileView extends React.Component<props, states> {
           this.props.finishLoading()
         })
     }
+
+    console.log('const tags ',tags);
+    console.log('state tags ',this.state.tags);
   }
   viewClickHandler = () => {
     this.setState({ isLoading: true })
@@ -311,7 +316,7 @@ class FileView extends React.Component<props, states> {
 
     Filesystem.readFile({
       path: "docuclip/" + uniqueFilename,
-      directory: FilesystemDirectory.Data,
+      directory: FilesystemDirectory.Data, 
     })
       .catch(async () => {
         // if readFile fails, then file doesn't exist, lets get on downloading it
@@ -328,7 +333,10 @@ class FileView extends React.Component<props, states> {
               return response.data
             } else {
               console.log("Verbose error: ", response.data)
-              throw new Error(response.data.error)
+              this.setState({
+                    error: response.data.error,
+                  })
+              throw new Error() 
             }
           })
           .then((response: DownloadData) => {
@@ -481,7 +489,7 @@ class FileView extends React.Component<props, states> {
 
   shareClickHandler = () => {
     this.setState({ showPopover: false, isLoading: true })
-
+    let contentType:string;
     let filename: string = this.props.file.filename
     if (
       filename.substr(filename.lastIndexOf(".") + 1).toLowerCase() !==
@@ -489,38 +497,97 @@ class FileView extends React.Component<props, states> {
     ) {
       filename += "." + this.props.file.metadata.ext
     }
+     if(this.props.metadata.is_local == 'true'){
+    
+      const uniqueFilename = this.props.file.publicName.substr(0, 8) + "_" + this.props.file.filename
+      console.log(uniqueFilename);
+      Filesystem.readFile({
+        path: "docuclip/" + uniqueFilename,
+        directory: FilesystemDirectory.Documents,
+      }).then((data) => {
+        // file exists and is downloaded, now get its location
+          Filesystem.getUri({
+            directory: FilesystemDirectory.Documents,
+            path: "docuclip/" + uniqueFilename,
+          }).then(
+            async (getUriResult) => {
+            const path = getUriResult.uri
+              FilePath.resolveNativePath(path).then((filePath ) => {
+                console.log('filepath',filePath);
 
-    const formData = new FormData()
-    formData.append("filePath", this.props.file.filePath)
-    formData.append("filename", this.props.file.filename)
-    formData.append("ext", this.props.file.metadata.ext)
-    axios
-      .post(apiRoutes.fileDownload, formData)
-      .then((response) => {
-        const { status } = response.data
-        if (status === "success") {
-          Plugins.FileSharer.share({
-            filename: filename,
-            base64Data: response.data.data,
-            contentType: response.data.contentType,
-          })
-            .then(() => {
-              // ignore
+                File.resolveLocalFilesystemUrl(filePath).then((fileInfo) => {
+//get content type
+                  let files = fileInfo as FileEntry;
+                  files.file((meta) => {
+                    contentType = meta.type;
+                  
+
+                  //after getting location tell the system to share
+                    Plugins.FileSharer.share({
+                      filename: filename,
+                      base64Data: data.data,
+                      contentType: contentType,
+                    })
+                    .then(() => {
+                      // ignore
+                    })
+                    .catch((error: any) => {
+                      console.error("File sharing failed", error.message)
+                    })
+                  });
+                })
+              })
+              /* console.log(path)
+              await Share.share({
+                  title: filename,
+                  text: filename,
+                  url: path,
+              }) */
+              this.setState({ isLoading: false })
+
+              
+            });
+      }).catch((error) => {
+          console.log("Verbose filesystem get error", error)
+          this.setState({ error: error })
+          this.setState({ isLoading: false })
+          
+
+      })
+    }
+    else{
+      const formData = new FormData()
+      formData.append("filePath", this.props.file.filePath)
+      formData.append("filename", this.props.file.filename)
+      formData.append("ext", this.props.file.metadata.ext)
+      axios
+        .post(apiRoutes.fileDownload, formData)
+        .then((response) => {
+          const { status } = response.data
+          if (status === "success") {
+            Plugins.FileSharer.share({
+              filename: filename,
+              base64Data: response.data.data,
+              contentType: response.data.contentType,
             })
-            .catch((error: any) => {
-              console.error("File sharing failed", error.message)
-            })
-        } else {
-          this.setState({ error: response.data.error })
-        }
-      })
-      .catch((error) => {
-        // handle error
-        this.setState({ error: error })
-      })
-      .then(() => {
-        this.setState({ isLoading: false })
-      })
+              .then(() => {
+                // ignore
+              })
+              .catch((error: any) => {
+                console.error("File sharing failed", error.message)
+              })
+          } else {
+            this.setState({ error: response.data.error })
+          }
+        })
+        .catch((error) => {
+          // handle error
+          this.setState({ error: error })
+        })
+        .then(() => {
+          this.setState({ isLoading: false })
+        })
+    }
   }
 
   redirectToPrevPage = () => {
@@ -651,7 +718,7 @@ class FileView extends React.Component<props, states> {
               <div className='singleFile-card-item'>
                 <span>Size</span>
                 <p>
-                  {this.props.metadata.size / (1024 * 8)} kb
+                  {(this.props.metadata.size / (1024 * 8)).toString().slice(0,6)} kb
                 </p>
               </div>
 
@@ -669,7 +736,8 @@ class FileView extends React.Component<props, states> {
 
               <div className='singleFile-card-item'>
                 <span>Tags</span>
-                <div className='tag-container'>{this.state.tags}</div>
+                <div className='tag-container'>{this.state.tags}
+                </div>
               </div>
               {this.state.additionalInfo}
             </div>
@@ -691,7 +759,6 @@ class FileView extends React.Component<props, states> {
                   {this.state.notificationId ? (
                     <div
                       className='button'
-                      color='danger'
                       onClick={() =>
                         this.dismissClickHandler(this.state.notificationId!)
                       }
@@ -700,6 +767,13 @@ class FileView extends React.Component<props, states> {
                     </div>
                   ) : null}
                   <p>or</p>
+                 <button
+                type='submit'
+                className='button'
+                onClick={this.viewClickHandler}
+              >
+                View
+              </button> 
                 </div>
               )}
               {/* Show this button to redirect user to their own file */}
@@ -719,13 +793,7 @@ class FileView extends React.Component<props, states> {
                   </div>
                 </React.Fragment>
               )}
-              <button
-                type='submit'
-                className='button'
-                onClick={this.viewClickHandler}
-              >
-                View
-              </button>
+              
             </div>
           </div>
         )}
