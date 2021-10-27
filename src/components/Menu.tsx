@@ -65,7 +65,7 @@ const appPages: AppPage[] = [
     mdIcon: cloudUploadSharp
   },
   {
-    title: 'Qr Scanner',
+    title: 'QR Scanner',
     url: '/scanner',
     iosIcon: qrCodeOutline,
     mdIcon: qrCodeSharp

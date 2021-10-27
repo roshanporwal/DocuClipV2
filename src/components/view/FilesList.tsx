@@ -180,25 +180,45 @@ class FilesList extends React.Component<Props, States> {
 
   isSameSubCategory(
     currentSubCategory: string,
-    fileSubCategory: string
+    fileSubCategory: string,
+    fileCategory: string,
   ): boolean {
-    if (!fileSubCategory) return false
 
+    if (!fileSubCategory) return false
     const structure = this.state.subCategories
+
+  /* 26/10/2021
+    Naseem Khan : - To all those who ponder over this code after i had to ponder over this for a  while(not my logic just
+    adding to it instead of changing so that i dont have to rewrite this)
+    what I added was checking if file category and the master category matches because if two categories had the same subcategory then 
+    it was a showing on file at two places.
+
+    if the props category is undefined that means it has no sub categories hence it directly should say true
+    it was already messy I made it even more sorry but i had no choice :-(
+   */
 
     // loop through each title and see if they match, if they do, return true
     let foundFlag = false
-    for (const safeTitle in structure) {
-      if (
-        safeTitle.toLowerCase() === fileSubCategory.toLowerCase() &&
-        structure[safeTitle].toLowerCase() === currentSubCategory.toLowerCase()
-      ) {
-        foundFlag = true
-        break
-      }
-    }
 
-    return foundFlag
+    for (const safeTitle in structure) {
+      if(this.props.category == undefined){
+        if (safeTitle.toLowerCase() === fileSubCategory.toLowerCase() && structure[safeTitle].toLowerCase() === currentSubCategory.toLowerCase()){
+          foundFlag = true;
+          return foundFlag;
+        }
+      }
+      else{
+        if ((safeTitle.toLowerCase() === fileSubCategory.toLowerCase() && structure[safeTitle].toLowerCase() === currentSubCategory.toLowerCase())
+            && (this.props.category.join(' ') == fileCategory)
+            ){
+        foundFlag = true;
+          return foundFlag;
+        }
+      }  
+      
+    }
+          return foundFlag;
+
   }
 
   componentDidMount() {
@@ -264,7 +284,8 @@ class FilesList extends React.Component<Props, States> {
                   subCategoryBoolean) ||
                 this.isSameSubCategory(
                   this.state.redirect,
-                  value.metadata.additional_info?.subCategory
+                  value.metadata.additional_info?.subCategory,
+                  value.metadata.category,
                 ) ||
                 eventOn === this.state.redirect
                 ||
@@ -410,7 +431,8 @@ class FilesList extends React.Component<Props, States> {
             subCategoryBoolean) ||
           this.isSameSubCategory(
             this.state.redirect,
-            value.metadata.additional_info?.subCategory
+            value.metadata.additional_info?.subCategory,
+            value.metadata.category,
           ) ||
           eventOn === this.state.redirect
         ) {

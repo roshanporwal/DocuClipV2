@@ -16,11 +16,16 @@ import axios from "axios"
 // import components and extension mapping
 import mapping from "../../ExtensionMapping"
 import TagComponent from "./TagComponent"
-import { Filesystem, FilesystemDirectory, Plugins } from "@capacitor/core"
 import { getToken } from "../login/TokenProvider"
+import {
+  FilesystemDirectory,
+  FilesystemEncoding,
+  Plugins,
+} from "@capacitor/core"
 import { FileOpener } from "@ionic-native/file-opener"
 import { FilePath } from "@ionic-native/file-path"
-import { File, FileEntry } from "@ionic-native/file"
+import { FileEntry } from "@ionic-native/file"
+import { File } from "@ionic-native/file"
 
 /**
  * 
@@ -489,6 +494,7 @@ class FileView extends React.Component<props, states> {
 
   shareClickHandler = () => {
     this.setState({ showPopover: false, isLoading: true })
+    const { Filesystem } = Plugins
     let contentType:string;
     let filename: string = this.props.file.filename
     if (
@@ -497,6 +503,7 @@ class FileView extends React.Component<props, states> {
     ) {
       filename += "." + this.props.file.metadata.ext
     }
+    console.log('yo',this.props.file.publicName.substr(0, 8) + "_" + this.props.file.filename)
      if(this.props.metadata.is_local == 'true'){
     
       const uniqueFilename = this.props.file.publicName.substr(0, 8) + "_" + this.props.file.filename
@@ -529,7 +536,7 @@ class FileView extends React.Component<props, states> {
                       contentType: contentType,
                     })
                     .then(() => {
-                      // ignore
+                      // ignore   
                     })
                     .catch((error: any) => {
                       console.error("File sharing failed", error.message)
@@ -551,8 +558,6 @@ class FileView extends React.Component<props, states> {
           console.log("Verbose filesystem get error", error)
           this.setState({ error: error })
           this.setState({ isLoading: false })
-          
-
       })
     }
     else{
@@ -653,13 +658,13 @@ class FileView extends React.Component<props, states> {
           cssClass='my-custom-class'
           onDidDismiss={(e) => this.setState({ showPopover: false })}
         >
-          <IonItem
+          {/* <IonItem
             onClick={() => this.shareClickHandler()}
             className='ion-activatable ripple-parent'
           >
             Share
             <IonRippleEffect></IonRippleEffect>
-          </IonItem>
+          </IonItem> */}
           {this.state.isOwner && (
             <React.Fragment>
               <IonItem
@@ -718,7 +723,7 @@ class FileView extends React.Component<props, states> {
               <div className='singleFile-card-item'>
                 <span>Size</span>
                 <p>
-                  {(this.props.metadata.size / (1024 * 8)).toString().slice(0,6)} kb
+                  {(this.props.metadata.size / (1024 * 8)).toString().slice(0,4)} kb
                 </p>
               </div>
 

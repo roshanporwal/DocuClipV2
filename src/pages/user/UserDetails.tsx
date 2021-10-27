@@ -26,13 +26,13 @@ type details = {
 
 type props = { details: details }
 type states = {
+              Email :any,
               Address1 : any,
               Address2 : any,
               City : any,
               State : any,
               Father : any, 
               Spouce : any,
-              Email :any,
               PAN : any,
               AadhaarCard : any,
               DOB : any,
@@ -65,13 +65,13 @@ export default class UserDetails extends React.Component<props, states> {
 
 
         this.state = {
+              Email:{value:Email,icon:MailIcon},
               Address1 : {value:Address1,icon:MapIcon},
               Address2 : {value:Address2,icon:MapIcon},
               City : {value:City,icon:CityIcon},
               State : {value:State,icon:StateIcon},
               Father : {value:Father,icon:FatherIcon}, 
               Spouce : {value:Spouce,icon:SpouceIcon},
-              Email:{value:Email,icon:MailIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
               DOB : {value:DOB,icon:DOBIcon},
@@ -83,13 +83,13 @@ export default class UserDetails extends React.Component<props, states> {
     }
     else{
       this.state = {
+              Email:{value:"",icon:MailIcon},
               Address1 : {value: "",icon:MapIcon},
               Address2 : {value: "",icon:MapIcon},
               City : {value: "",icon:CityIcon},
               State : {value: "",icon:StateIcon},
               Father : {value: "",icon:FatherIcon}, 
               Spouce : {value: "",icon:SpouceIcon},
-              Email:{value:"",icon:MailIcon},
               PAN : {value: "",icon:CardIcon},
               AadhaarCard : {value: "",icon:AadharIcon},
               DOB : {value: "",icon:DOBIcon},

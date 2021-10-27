@@ -243,6 +243,7 @@ const Item: React.FC<props> = (props) => {
               return response.data
             } else {
               console.log("Verbose error: ", response.data)
+              setLoading(false)
               setError(response.data.error)
             }
           })
@@ -265,7 +266,8 @@ const Item: React.FC<props> = (props) => {
                   })
                   .catch((error) => {
                     console.log("Verbose error: ", error)
-                      setError(error)
+                    setLoading(false)
+                    setError(error)
 
                   })
               })
@@ -309,16 +311,20 @@ const Item: React.FC<props> = (props) => {
               .catch((error) => {
                 console.log(path)
                 console.log("Verbose opening file error", error)
-              setError(error)
+                setLoading(false)
+
+                setError(error)
 
                 // throw this error if app to open file is not found
                 if (error.status === 9) {
+                  setLoading(false)
                   setError("No application found to open the file")
                 }
               })
           },
           (error) => {
             console.log("Verbose filesystem get error", error)
+                setLoading(false)
               setError(error)
           }
         )
@@ -326,10 +332,8 @@ const Item: React.FC<props> = (props) => {
       .catch((error) => {
         // print the errors
         console.log("Error", error)
-        setError(error)
-      })
-      .then(() => {
         setLoading(false)
+        setError(error)
       })
   }
 
@@ -357,6 +361,7 @@ const Item: React.FC<props> = (props) => {
     ) {
       filename += "." + props.metadata.ext
     }
+    console.log(props.publicName.substr(0, 8) + "_" + props.fileName)
     if(props.metadata.is_local == 'true'){
     
       const uniqueFilename = props.publicName.substr(0, 8) + "_" + props.fileName

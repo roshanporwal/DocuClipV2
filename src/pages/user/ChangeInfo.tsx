@@ -321,7 +321,15 @@ export default class ChangeInfo extends React.Component<props, states> {
               Additional Data
             </div>
           </div>
-          
+          <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Email</IonLabel>
+            <IonInput
+              type='text'
+              name='Email'
+              value={this.state.additionalData.Email}
+              onIonChange={this.onAdditionalChangeHandler}
+            />
+          </IonItem>
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Address1</IonLabel>
             <IonInput
@@ -376,15 +384,7 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
-          <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Email</IonLabel>
-            <IonInput
-              type='text'
-              name='Email'
-              value={this.state.additionalData.Email}
-              onIonChange={this.onAdditionalChangeHandler}
-            />
-          </IonItem>
+          
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>PAN</IonLabel>
             <IonInput

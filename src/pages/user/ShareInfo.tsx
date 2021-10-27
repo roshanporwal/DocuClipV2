@@ -69,13 +69,13 @@ export default class ShareInfo extends React.Component<props, states> {
             Vehicle,
             BloodGroup} = JSON.parse(add_data);
         this.additional_details = {
+              Email : {value:Email,icon:MailIcon},
               Address1 : {value:Address1,icon:MapIcon},
               Address2 : {value:Address2,icon:MapIcon},
               City : {value:City,icon:CityIcon},
               State : {value:State,icon:StateIcon},
               Father : {value:Father,icon:FatherIcon}, 
               Spouce : {value:Spouce,icon:SpouceIcon},
-              Email : {value:Email,icon:MailIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
               DOB : {value:DOB,icon:DOBIcon},
@@ -173,7 +173,7 @@ export default class ShareInfo extends React.Component<props, states> {
                     <p>{this.main_details["userName"]}</p>
                 </div>
             </div>
-            <div className='profile-card-item'>
+            {/* <div className='profile-card-item'>
                 <div className="check-box-icon">
                     <IonCheckbox slot="start" color="primary" value={this.main_details["userEmail"]} name="useremail" onIonChange={this.handleChange}/>
                     <img src={MailIcon} height="30" width="28" />
@@ -192,7 +192,7 @@ export default class ShareInfo extends React.Component<props, states> {
                     <span>Nick name</span>
                     <p>{this.main_details["nickname"]}</p>
                 </div>
-            </div>
+            </div> */}
             {Object.keys(this.additional_details).map((item)=>{
                 return(
                 <div className='profile-card-item' key={item}>
