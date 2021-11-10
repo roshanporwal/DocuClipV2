@@ -713,6 +713,11 @@ class FileView extends React.Component<props, states> {
                   {this.props.metadata.is_local == true ? 'Local' : 'Server' }
                 </p>
               </div>
+              {this.props.metadata.is_verified ? 
+              <div className='singleFile-card-item'>
+                <span>Certified</span>
+                <p>{this.props.metadata.is_verified == true ? 'Yes' : 'No' }</p>
+              </div> : null}
               <div className='singleFile-card-item'>
                 <span>Type</span>
                 <p>

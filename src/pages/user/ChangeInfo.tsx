@@ -333,15 +333,6 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
-           <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Gender</IonLabel>
-            <IonInput
-              type='text'
-              name='Gender'
-              value={this.state.additionalData.Gender}
-              onIonChange={this.onAdditionalChangeHandler}
-            />
-          </IonItem>
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Father</IonLabel>
             <IonInput
@@ -351,6 +342,16 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
+           <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Gender</IonLabel>
+            <IonInput
+              type='text'
+              name='Gender'
+              value={this.state.additionalData.Gender}
+              onIonChange={this.onAdditionalChangeHandler}
+            />
+          </IonItem>
+          
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Address1</IonLabel>
             <IonInput

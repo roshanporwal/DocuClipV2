@@ -74,7 +74,7 @@ class Notifications extends React.Component<props, states> {
       .then((response) => {
         if (response.data.status === "success") {
           console.log('response',response.data.notifications)
-          this.setState({ notifications: response.data.notifications, notificationcount: response.data.count})
+          this.setState({ notifications: response.data.notifications.reverse(), notificationcount: response.data.count})
         }
 
       })

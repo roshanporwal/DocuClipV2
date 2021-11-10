@@ -9,6 +9,7 @@ import {
 } from "@ionic/react"
 import { documentOutline, ellipsisVerticalOutline } from "ionicons/icons"
 import moment from "moment"
+import Certified from '../../assets/certified-icon.png'
 
 //import { FileOpener } from '@ionic-native/file-opener'
 
@@ -619,7 +620,16 @@ const Item: React.FC<props> = (props) => {
             )}
           </div>
           </div>
-          <div className='file-options'>  
+          
+          <div className='file-options'>
+            {props.metadata.is_verified ? 
+              <div className="is_certified">
+                <img
+                    src={Certified}
+                    width="20"
+                  />
+              </div>
+              : null}
             <button className='options-button'>
               <IonIcon
                 icon={ellipsisVerticalOutline}
