@@ -30,7 +30,9 @@ body{
 .muted {
     color: var(--muted-color);
 }
-
+.item-native {
+    background:transparent!important;
+}
 .main-container {
     width: 100%;
     padding-right: 7.5%;

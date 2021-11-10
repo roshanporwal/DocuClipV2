@@ -408,8 +408,8 @@ class FilesList extends React.Component<Props, States> {
 
     if (latestSearchText === "") {
       const today = moment()
-
-      for (const [index, value] of this.state.files.entries()) {
+      console.log('in empty');
+      /* for (const [index, value] of this.state.files.entries()) {
         let eventOn: string | null = value.eventOn
         if (eventOn) {
           eventOn = eventOn.slice(0, -6)
@@ -476,10 +476,155 @@ class FilesList extends React.Component<Props, States> {
             }
           }
         }
-      }
+      } */
+      this.getFileList().then((response) => {
+          if (response.status === "success") {
+            console.log("response: ", response)
+            // empty array which will store JSX Components of Item
+            const pastItems: any = []
+            const upcomingItems: any = []
+
+            // temp array to store only category files
+            const temp: any = []
+
+            // loop through all files and run it thorough a conditional to
+            // pick only files matching the selected category
+            for (const [index, value] of response.files.entries()) {
+              let eventOn: string | null = value.eventOn
+              let eventEnd: string | null = value.eventEnd
+              if (eventOn) {
+                eventOn = eventOn.slice(0, -6)
+              }
+              if (eventEnd) {
+                eventEnd = eventEnd.slice(0, -6)
+              } 
+
+              let subCategoryBoolean = true
+              let options = null
+              try {
+                options = JSON.parse(value.metadata.additional_info)
+              } catch (e) {
+                options = value.metadata.additional_info
+              }
+              if (options) {
+                if (this.props.subCategory?.indexOf(options.subCategory)) {
+                  subCategoryBoolean = false
+                }
+              } else subCategoryBoolean = false
+              if (
+                (value.metadata.category === this.state.redirect &&
+                  subCategoryBoolean) ||
+                this.isSameSubCategory(
+                  this.state.redirect,
+                  value.metadata.additional_info?.subCategory,
+                  value.metadata.category,
+                ) ||
+                eventOn === this.state.redirect
+                ||
+                eventEnd === this.state.redirect
+              ) {
+                temp.push(value)
+
+                // check for booking time if category is travel bookings
+                if (
+                  value.metadata.category === "Travel Bookings" &&
+                  eventOn !== this.state.redirect
+                ) {
+                  // add the file to the list
+                  if ((eventEnd && today.diff(moment(eventEnd)) < 0) || 
+                    (eventOn && today.diff(moment(eventOn)) < 0)
+                  ) {
+                    upcomingItems.push(
+                      <Item
+                        fileName={value.filename}
+                        fileSize={value.metadata.size}
+                        metadata={value.metadata}
+                        uploadedAt={value.uploaded}
+                        publicName={value.publicName}
+                        ext={value.metadata.ext}
+                        path={value.path}
+                        key={index + Date.now() * Math.random()}
+                        showCategoryTitle={
+                          this.props.showCategoryTitle ? true : false
+                        }
+                        subCategories={this.state.subCategories}
+                      />
+                    )
+                  } else {
+                    pastItems.push(
+                      <Item
+                        fileName={value.filename}
+                        fileSize={value.metadata.size}
+                        metadata={value.metadata}
+                        uploadedAt={value.uploaded}
+                        publicName={value.publicName}
+                        ext={value.metadata.ext}
+                        path={value.path}
+                        key={index + Date.now() * Math.random()}
+                        showCategoryTitle={
+                          this.props.showCategoryTitle ? true : false
+                        }
+                        subCategories={this.state.subCategories}
+                      />
+                    )
+                  }
+                } else {
+                  pastItems.push(
+                    <Item
+                      fileName={value.filename}
+                      fileSize={value.metadata.size}
+                      metadata={value.metadata}
+                      uploadedAt={value.uploaded}
+                      publicName={value.publicName}
+                      ext={value.metadata.ext}
+                      path={value.path}
+                      key={index + Date.now() * Math.random()}
+                      showCategoryTitle={
+                        this.props.showCategoryTitle ? true : false
+                      }
+                      subCategories={this.state.subCategories}
+                    />
+                  )
+                }
+              }
+            }
+            let outputFilesList = []
+            if (this.props.category && this.props.category.join('') === "TravelBookings") {
+              outputFilesList = [
+                upcomingItems.length === 0 ? null : <UpcomingTravelsHeader />,
+                ...upcomingItems.reverse(),
+                pastItems.length === 0 ? null : <PastTravelsHeader />,
+                ...pastItems
+              ]
+            } else {
+              outputFilesList = [
+                ...pastItems,
+                ...upcomingItems,
+              ]
+            }
+            this.setState({
+              // save the state of all files
+              files: temp,
+
+              // if the list is empty after the above operation, it means no
+              // files of the selected category exists. Set setEmpty flag to true
+              // to display an error saying no files exist
+              isEmpty: outputFilesList.length === 0 ? true : false,
+
+              // set filesList state to all files from current category
+              filesList: outputFilesList,
+
+              isLoading: false,
+            }, () => console.log(this.state.filesList))
+          } else {
+            // show error
+            this.setState({ error: response.error! })
+          }
+        })
+    
     } else {
       const today = moment()
-
+      console.log('in something')
       let index = 0
       for (let file of this.state.files) {
         // a function which can push files to be displayed if they match certain parameters
@@ -710,22 +855,26 @@ class FilesList extends React.Component<Props, States> {
 
         <div>
           <div className='file-list center'>
+            <div className='searchbar'>
+              <IonSearchbar
+                value={this.state.searchText}
+                onIonChange={this.onSearchInput}
+              />
+            </div>
             {this.state.isLoading ? null : this.state.isEmpty ? (
               <div style={{ margin: "1rem auto", textAlign: "center" }}>
                 No Results Found...
               </div>
             ) : (
-              this.state.filesList
+              <div>
+                
+                {this.state.filesList}
+              </div>
             )}
           </div>
 
           {/* FIXME: Need to fix the searchbar css issue */}
-          <div className='searchbar'>
-            <IonSearchbar
-              value={this.state.searchText}
-              onIonChange={this.onSearchInput}
-            />
-          </div>
+          
         </div>
       </React.Fragment>
     )

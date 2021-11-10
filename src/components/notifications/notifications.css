@@ -1,7 +1,14 @@
 .hidden {
   display: none;
 }
-
+.certified{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.certified img{
+  margin-right: 10px;
+}
 .notification-entry {
   width: 100%;
   display: flex;

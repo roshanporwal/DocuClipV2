@@ -9,12 +9,14 @@ import apiRoutes from "../Routes"
 import { getToken } from "../login/TokenProvider"
 import { FilesystemDirectory, Plugins } from "@capacitor/core"
 import { FileOpener } from "@ionic-native/file-opener"
+import Certified from '../../assets/certified-icon.png'
 
 type props = {
   id: string
   action: string
   text: string
   public_name: string
+  is_verified:any
  //subCategoryStructure: any
 }
 type states = {
@@ -314,14 +316,24 @@ class NotificationEntry extends React.Component<props, states> {
 
         <div id={this.props.id} className='notification-entry'>
           
+           {(this.props.is_verified ==="1") ? (
+                <img
+                  src={Certified}
+                   width="20"
+                />
+             ) :  
             <IonIcon src={notifications} />
+           }
+            
           {/* <div className='header'>
             <h6 className='title'>{this.state.title}</h6>
           </div> */}
 
           <div className='body'>
+            
             <p>{this.props.text}</p>
             <p>{this.state.info}</p>
+            
             {this.props.action === "SHARE_ACCEPT" ? (
               <div style={{ display: "flex", justifyContent: "space-around" }}>
                 <div onClick={this.viewClickHandler} className="sm-button">

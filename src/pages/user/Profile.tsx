@@ -45,9 +45,9 @@ export default class Profile extends React.Component<props, states> {
     return (
       <React.Fragment>
         <div className='profile-card-content'>
-          <div className="profile-photo">
+          {/* <div className="profile-photo">
             <img src={ProfileImage}/>
-          </div>
+          </div> */}
           <div className="edit-and-share"> 
             <div>   
               <IonRouterLink href="/profile/change-info">

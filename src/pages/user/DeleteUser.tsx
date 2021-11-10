@@ -42,7 +42,7 @@ export default class DeleteUser extends React.Component<props, states> {
      const postResponse =  Axios.post(apiRoutes.deleteAccount,credentialData).then( (response) => {
         console.log(response);
         if(response.data.deleted == "success"){
-            window.location.replace('/logout');
+           window.location.replace('/logout');
         }
         else{
             this.setState({error:'Some thing went wrong'})
@@ -95,7 +95,7 @@ export default class DeleteUser extends React.Component<props, states> {
         />
 
         <div style={{marginTop:80}}>
-            <p>Warning :</p>
+            <p>Warning : Deleting this account would result in deleting all the files you stored on the server</p>
             <div style={{alignItems:'center'}}>
                 <div className="button" onClick={() => this.setState({modalOpen:true}) }>
                     Delete My Account

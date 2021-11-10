@@ -243,12 +243,15 @@ const Item: React.FC<props> = (props) => {
               return response.data
             } else {
               console.log("Verbose error: ", response.data)
-              setLoading(false)
               setError(response.data.error)
+              setLoading(false)
             }
           })
           .then((response: DownloadData) => {
             // create directory
+            if(!response){
+              return null;
+            }
             Filesystem.mkdir({
               path: "docuclip",
               directory: FilesystemDirectory.Documents,
@@ -266,7 +269,6 @@ const Item: React.FC<props> = (props) => {
                   })
                   .catch((error) => {
                     console.log("Verbose error: ", error)
-                    setLoading(false)
                     setError(error)
 
                   })
@@ -307,7 +309,10 @@ const Item: React.FC<props> = (props) => {
 
             // now use 3rd party apps to open this apps
             FileOpener.open(path, contentType)
-              .then(() => console.log("File is opened"))
+              .then(() => {
+                console.log("File is opened")
+                setLoading(false)
+              } )
               .catch((error) => {
                 console.log(path)
                 console.log("Verbose opening file error", error)

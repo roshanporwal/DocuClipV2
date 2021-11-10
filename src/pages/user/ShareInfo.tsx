@@ -12,6 +12,7 @@ import CardIcon from '../../assets/profile-icons/credit-card-icon.png'
 import CityIcon from '../../assets/profile-icons/city_icon.png'
 import DOBIcon from '../../assets/profile-icons/dob-icon.png'
 import FatherIcon from '../../assets/profile-icons/father-icon.png'
+import GenderIcon from '../../assets/profile-icons/gender-icon.png'
 import MailIcon from '../../assets/profile-icons/mail-icon.png'
 import MobileIcon from '../../assets/profile-icons/mobile_icon.png'
 import NameIcon from '../../assets/profile-icons/name_icon.png'
@@ -61,6 +62,7 @@ export default class ShareInfo extends React.Component<props, states> {
             State,
             Father, 
             Spouce,
+            Gender,
             Email,
             PAN,
             AadhaarCard,
@@ -70,11 +72,12 @@ export default class ShareInfo extends React.Component<props, states> {
             BloodGroup} = JSON.parse(add_data);
         this.additional_details = {
               Email : {value:Email,icon:MailIcon},
+              Gender : {value:Gender,icon:GenderIcon}, 
+              Father : {value:Father,icon:FatherIcon}, 
               Address1 : {value:Address1,icon:MapIcon},
               Address2 : {value:Address2,icon:MapIcon},
               City : {value:City,icon:CityIcon},
               State : {value:State,icon:StateIcon},
-              Father : {value:Father,icon:FatherIcon}, 
               Spouce : {value:Spouce,icon:SpouceIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},

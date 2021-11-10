@@ -9,12 +9,15 @@ import { getToken, isLoggedIn } from "../login/TokenProvider"
 import apiRoutes from "../Routes"
 
 import NotificationEntry from "./NotificationEntry"
+import Certified from '../../assets/certified-icon.png'
+
 
 type notifications = {
   id: string
   text: string
   action: string
   public_name: string
+  is_verified:any
 }
 
 type props = {}
@@ -127,8 +130,11 @@ class Notifications extends React.Component<props, states> {
     return (
       <div className='container'>
 {/*            <NotificationEntry id="12" action="SHARE_NOTIFY"  text="This is a test Notification"  public_name="Dine Out Notification" />
- */}
-        
+ */}  <div className="certified">
+        <img
+          src={Certified}
+            width="20"
+        /><p> Certified Retailer</p></div>
         {(this.state.notificationcount === 0) ? (
                   <div
                     style={{
@@ -141,7 +147,6 @@ class Notifications extends React.Component<props, states> {
                     No Notification
                   </div>)
             : (this.state.notifications.map((notification: notifications) => {
-
               return (
                 <NotificationEntry
                   key={notification.id}
@@ -149,6 +154,7 @@ class Notifications extends React.Component<props, states> {
                   action={notification.action}
                   text={notification.text}
                   public_name={notification.public_name}
+                  is_verified = {notification.is_verified}
                 // subCategoryStructure={this.state.subCategoryStructure}  //not required
                 />
               )

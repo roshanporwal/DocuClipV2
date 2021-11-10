@@ -247,6 +247,17 @@ class Calendar extends React.Component<props, states> {
   }
 
   async componentDidMount() {
+    const { Network } = Plugins
+    let status = await Network.getStatus()
+    
+    const { Filesystem } = Plugins
+    if (status.connected === false) {
+     this.setState({ error: "It is recommended to be connected to internet while using the calendar otherwise it will behave unexpectedly" })
+      this.setState({ isLoading:false}); 
+    }
+
+
+
     // download the category structure if possible
     const categoryStructure = await this.getCategoryStructure()
     const subCategories = this.filterCategoryStructure(categoryStructure)
@@ -303,13 +314,18 @@ class Calendar extends React.Component<props, states> {
       }
     })
 
+    let formats = {
+        dateFormat: 'D',
+        monthHeaderFormat:'MMM YYYY',
+    }
     // pass all these events to the calendar component and
     // load the calendar on the page
     const calendar = (
       <BigCalendar
-        popup
+        popup={false}
         localizer={momentLocalizer(moment)}
         events={myEventsList}
+        formats={formats}
         views={["month"]}
         startAccessor='start'
         endAccessor='end'

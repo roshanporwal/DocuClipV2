@@ -168,7 +168,7 @@ const Routes: React.FC = () => {
               exact
               render={() => {
                 return (
-                  <MenuTemplate name={"Qr Scanner"} component={<QrScanner />} tabs={true} />
+                  <MenuTemplate name={"QR Scanner"} component={<QrScanner />} tabs={true} />
                 )
               }}
             />

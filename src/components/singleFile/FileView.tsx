@@ -383,6 +383,7 @@ class FileView extends React.Component<props, states> {
           })
       })
       .then(() => {
+        this.setState({ isLoading: false })
         // file exists and is downloaded, now open the file
         Filesystem.getUri({
           directory: FilesystemDirectory.Data,
@@ -408,13 +409,6 @@ class FileView extends React.Component<props, states> {
             console.log("Verbose filesystem get error", error)
           }
         )
-      })
-      .catch((error) => {
-        // print the errors
-        console.log("Error", error)
-      })
-      .then(() => {
-        this.setState({ isLoading: false })
       })
   }
 
@@ -658,16 +652,16 @@ class FileView extends React.Component<props, states> {
           cssClass='my-custom-class'
           onDidDismiss={(e) => this.setState({ showPopover: false })}
         >
-          {/* <IonItem
+          <IonItem
             onClick={() => this.shareClickHandler()}
             className='ion-activatable ripple-parent'
           >
             Share
             <IonRippleEffect></IonRippleEffect>
-          </IonItem> */}
+          </IonItem>
           {this.state.isOwner && (
             <React.Fragment>
-              <IonItem
+              {/* <IonItem
                 onClick={() =>
                   (window.location.href = "/change/" + this.props.file.publicName)
                 }
@@ -675,7 +669,7 @@ class FileView extends React.Component<props, states> {
               >
                 Edit Info
                 <IonRippleEffect></IonRippleEffect>
-              </IonItem>
+              </IonItem> */}
               <IonItem
                 onClick={() => this.setState({ isDeleteConfirmOpen: true })}
                 className='ion-activatable ripple-parent'
@@ -688,7 +682,7 @@ class FileView extends React.Component<props, states> {
         </IonPopover>
 
         {!!this.state.isLoading ? null : (
-          <div className='row-vertical'>
+          <div className='row-vertical' style={{marginBottom:'80px'}}>
             <div className='card-header'>
               <img
                 src={this.state.extImg}
@@ -713,6 +707,12 @@ class FileView extends React.Component<props, states> {
               </div>
             </div>
             <div className='singleFile-card-content'>
+              <div className='singleFile-card-item'>
+                <span>Location</span>
+                <p>
+                  {this.props.metadata.is_local == true ? 'Local' : 'Server' }
+                </p>
+              </div>
               <div className='singleFile-card-item'>
                 <span>Type</span>
                 <p>
@@ -753,32 +753,36 @@ class FileView extends React.Component<props, states> {
               {/* Only show save file if user is NOT the owner of the file */}
               {/* or the user doesn't already have the file saved */}
               {!this.state.isOwner && !this.state.hasFile && (
-                <div>
-                  <button
-                    className='button'
-                    onClick={() => this.acceptConfirmHandler()}
-                    disabled={this.state.isAcceptClickedOnce}
-                  >
-                    Accept File
-                  </button>
-                  {this.state.notificationId ? (
-                    <div
-                      className='button'
-                      onClick={() =>
-                        this.dismissClickHandler(this.state.notificationId!)
-                      }
-                    >
-                      Reject
-                    </div>
-                  ) : null}
-                  <p>or</p>
-                 <button
-                type='submit'
-                className='button'
-                onClick={this.viewClickHandler}
-              >
-                View
-              </button> 
+                <div className="row-vertical">
+                    <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+                      <button
+                        className='custom-button'
+                        onClick={() => this.acceptConfirmHandler()}
+                        disabled={this.state.isAcceptClickedOnce}
+                      >
+                        Accept File
+                      </button>
+                      {this.state.notificationId ? (
+                        <div
+                          className='custom-button'
+                          onClick={() =>
+                            this.dismissClickHandler(this.state.notificationId!)
+                          }
+                        >
+                          Reject
+                        </div>
+                      ) : null}
+                      </div>
+                      <div>
+                        <p>or</p>
+                        <button
+                          type='submit'
+                          className='custom-button'
+                          onClick={this.viewClickHandler}
+                        >
+                            View
+                        </button>
+                        </div> 
                 </div>
               )}
               {/* Show this button to redirect user to their own file */}
@@ -788,11 +792,12 @@ class FileView extends React.Component<props, states> {
                     You already have this file saved
                   </p>
                   <div
-                    className='button'
-                    onClick={() =>
+                    className='custom-button'
+                    /* onClick={() =>
                       (window.location.href = "file/" + this.state.oldFile)
-                    }
-                    style={{ marginBottom: "15px" }}
+                    } */
+                    onClick={this.viewClickHandler}
+                    style={{ marginBottom: "15px",marginTop:'10px' }}
                   >
                     Open my file
                   </div>

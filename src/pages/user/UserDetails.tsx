@@ -8,6 +8,7 @@ import CardIcon from '../../assets/profile-icons/credit-card-icon.png'
 import CityIcon from '../../assets/profile-icons/city_icon.png'
 import DOBIcon from '../../assets/profile-icons/dob-icon.png'
 import FatherIcon from '../../assets/profile-icons/father-icon.png'
+import GenderIcon from '../../assets/profile-icons/gender-icon.png'
 import MailIcon from '../../assets/profile-icons/mail-icon.png'
 import MobileIcon from '../../assets/profile-icons/mobile_icon.png'
 import NameIcon from '../../assets/profile-icons/name_icon.png'
@@ -26,19 +27,20 @@ type details = {
 
 type props = { details: details }
 type states = {
-              Email :any,
-              Address1 : any,
-              Address2 : any,
-              City : any,
-              State : any,
-              Father : any, 
-              Spouce : any,
-              PAN : any,
-              AadhaarCard : any,
-              DOB : any,
-              AgeinYear : any,
-              Vehicle : any,
-              BloodGroup : any,
+      Email :any,
+      Gender:any,
+      Father : any,
+      Address1 : any,
+      Address2 : any,
+      City : any,
+      State : any, 
+      Spouce : any,
+      PAN : any,
+      AadhaarCard : any,
+      DOB : any,
+      AgeinYear : any,
+      Vehicle : any,
+      BloodGroup : any,
 }
 
 export default class UserDetails extends React.Component<props, states> {
@@ -56,6 +58,7 @@ export default class UserDetails extends React.Component<props, states> {
           Father, 
           Spouce,
           Email,
+          Gender,
           PAN,
           AadhaarCard,
           DOB,
@@ -66,11 +69,12 @@ export default class UserDetails extends React.Component<props, states> {
 
         this.state = {
               Email:{value:Email,icon:MailIcon},
+              Gender : {value:Gender,icon:GenderIcon}, 
+              Father : {value:Father,icon:FatherIcon}, 
               Address1 : {value:Address1,icon:MapIcon},
               Address2 : {value:Address2,icon:MapIcon},
               City : {value:City,icon:CityIcon},
               State : {value:State,icon:StateIcon},
-              Father : {value:Father,icon:FatherIcon}, 
               Spouce : {value:Spouce,icon:SpouceIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
@@ -84,11 +88,12 @@ export default class UserDetails extends React.Component<props, states> {
     else{
       this.state = {
               Email:{value:"",icon:MailIcon},
+              Gender : {value: "",icon:GenderIcon},
+              Father : {value: "",icon:FatherIcon},
               Address1 : {value: "",icon:MapIcon},
               Address2 : {value: "",icon:MapIcon},
               City : {value: "",icon:CityIcon},
-              State : {value: "",icon:StateIcon},
-              Father : {value: "",icon:FatherIcon}, 
+              State : {value: "",icon:StateIcon}, 
               Spouce : {value: "",icon:SpouceIcon},
               PAN : {value: "",icon:CardIcon},
               AadhaarCard : {value: "",icon:AadharIcon},

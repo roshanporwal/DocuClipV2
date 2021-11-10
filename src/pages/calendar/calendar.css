@@ -1,14 +1,4 @@
 /* Calendar css */
-@media (max-width:370px) {
-    
-    .rbc-toolbar{
-        font-size: 13px;
-    }
-    .rbc-toolbar button {
-        font-size: 10px;
-        padding: 5px 15px;
-    }
-}
 
 .rbc-calendar .rbc-toolbar .rbc-toolbar-label {
     text-align: right;

@@ -26,11 +26,12 @@ type states = {
     error: string
     isLoading: boolean,
     additionalData:{
+        Father : string, 
+        Gender : string,
         Address1 : string,
         Address2 : string,
         City : string,
         State : string,
-        Father : string, 
         Spouce : string,
         Email : string,
         PAN : string,
@@ -55,7 +56,7 @@ export default class ChangeInfo extends React.Component<props, states> {
     const { userEmail, userName, fullname, nickname } = getToken()    
     let add_data = localStorage.getItem('Additional Data');
     if(add_data){
-      let {Address1,Address2,City,State,Father,Spouce,Email,PAN,AadhaarCard,DOB,AgeinYear,Vehicle,BloodGroup} = JSON.parse(add_data);
+      let {Address1,Address2,City,State,Gender,Father,Spouce,Email,PAN,AadhaarCard,DOB,AgeinYear,Vehicle,BloodGroup} = JSON.parse(add_data);
     
         this.state = {
             username: userName,
@@ -65,13 +66,14 @@ export default class ChangeInfo extends React.Component<props, states> {
             error: "",
           isLoading: false,
             additionalData:{
+              Email : Email,
+              Father : Father,
+              Gender:Gender, 
               Address1 : Address1,
               Address2 : Address2,
               City : City,
               State : State,
-              Father : Father, 
               Spouce : Spouce,
-              Email : Email,
               PAN : PAN,
               AadhaarCard : AadhaarCard,
               DOB : DOB,
@@ -90,13 +92,14 @@ export default class ChangeInfo extends React.Component<props, states> {
         error: "",
       isLoading: false,
       additionalData:{
+        Email : "",
+        Father : "",
+        Gender:"",
         Address1 : "",
         Address2 : "",
         City : "",
-        State : "",
-        Father : "", 
+        State : "", 
         Spouce : "",
-        Email : "",
         PAN : "",
         AadhaarCard : "",
         DOB : "",
@@ -277,7 +280,7 @@ export default class ChangeInfo extends React.Component<props, states> {
 
         <IonRow>
           <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Username</IonLabel>
+            <IonLabel position='floating'>Mobile No</IonLabel>
             <IonInput
               type='text'
               name='username'
@@ -297,7 +300,7 @@ export default class ChangeInfo extends React.Component<props, states> {
           </IonItem> */}
 
           <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Fullname</IonLabel>
+            <IonLabel position='floating'> Full Name</IonLabel>
             <IonInput
               type='text'
               name='fullname'
@@ -316,17 +319,35 @@ export default class ChangeInfo extends React.Component<props, states> {
             />
           </IonItem> */}
           {/* Additional Fields */}
-          <div className="center additional-data">
+          {/* <div className="center additional-data">
             <div className="text-center">
               Additional Data
             </div>
-          </div>
+          </div> */}
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Email</IonLabel>
             <IonInput
               type='text'
               name='Email'
               value={this.state.additionalData.Email}
+              onIonChange={this.onAdditionalChangeHandler}
+            />
+          </IonItem>
+           <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Gender</IonLabel>
+            <IonInput
+              type='text'
+              name='Gender'
+              value={this.state.additionalData.Gender}
+              onIonChange={this.onAdditionalChangeHandler}
+            />
+          </IonItem>
+          <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Father</IonLabel>
+            <IonInput
+              type='text'
+              name='Father'
+              value={this.state.additionalData.Father}
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
@@ -363,15 +384,6 @@ export default class ChangeInfo extends React.Component<props, states> {
               type='text'
               name='State'
               value={this.state.additionalData.State}
-              onIonChange={this.onAdditionalChangeHandler}
-            />
-          </IonItem>
-          <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Father</IonLabel>
-            <IonInput
-              type='text'
-              name='Father'
-              value={this.state.additionalData.Father}
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>

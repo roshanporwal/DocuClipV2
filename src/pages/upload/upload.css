@@ -10,7 +10,9 @@
 .vertically-center {
     margin-top: 9rem;
 }
-
+.item-native {
+    background:transparent!important;
+}
 .additional-fields {
     border-top: 1px dashed #ccc;
     border-bottom: 1px dashed #ccc;
