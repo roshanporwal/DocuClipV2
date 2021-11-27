@@ -588,10 +588,19 @@ const Item: React.FC<props> = (props) => {
       </IonPopover>
 
       <div className='file-item-container'>
+        
         <div className='list-item'>
-          <div className='file-icon' onClick={itemClickHandler}>
+          
+          <div className={props.metadata.is_verified == 1 ? 'file-icon' : 'file-icon-unverified'} onClick={itemClickHandler}>
             {/* <IonIcon src={documentOutline} size="large" /> */}
-            
+            {props.metadata.is_verified == 1 ?  
+              <div className="is_certified">
+                <img
+                    src={Certified}
+                    width="20"
+                  />
+              </div>
+              : null} 
             <img src={extImg} alt={props.ext} width='58' height='58' />
           </div>
           <div className='file-info' onClick={itemClickHandler}>
@@ -622,14 +631,6 @@ const Item: React.FC<props> = (props) => {
           </div>
           
           <div className='file-options'>
-            {props.metadata.is_verified ? 
-              <div className="is_certified">
-                <img
-                    src={Certified}
-                    width="20"
-                  />
-              </div>
-              : null}
             <button className='options-button'>
               <IonIcon
                 icon={ellipsisVerticalOutline}

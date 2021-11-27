@@ -2,7 +2,7 @@ import { IonAlert, IonCheckbox, IonContent, IonIcon, IonModal, } from "@ionic/re
 import React from "react"
 import { getToken, isLoggedIn } from "../../components/login/TokenProvider"
 import "./profile.css"
-import { close } from "ionicons/icons"
+import { close, share } from "ionicons/icons"
 import QrCode from 'qrcode.react'
 
 import AadharIcon from '../../assets/profile-icons/aadhaar-icon.png'
@@ -31,12 +31,15 @@ type details = {
   fullname: string
   nickname: string
 }
-type states = {}
+type states = {
+    isModalOpen : boolean,
+    error:any,
+    additional_details : object,
+}
 
 export default class ShareInfo extends React.Component<props, states> {
   
     main_details = {};
-    additional_details = {};
     constructor(props: props) {
     super(props)
 
@@ -49,10 +52,19 @@ export default class ShareInfo extends React.Component<props, states> {
      this.main_details = {
         userId: userId,
         userEmail: userEmail,
-        userName: userName,
+        mobile: userName,
         fullname: fullname,
         nickname: nickname
       }
+
+    this.state = {
+            isModalOpen : false,
+            error:null,
+            additional_details :{
+              Fullname: {value:fullname,icon:NameIcon,checked:false},
+              Mobile: {value:userName,icon:MobileIcon,checked:false},
+        }
+    }
     let add_data = localStorage.getItem('Additional Data');
   
     if(add_data){
@@ -70,28 +82,30 @@ export default class ShareInfo extends React.Component<props, states> {
             AgeinYear,
             Vehicle,
             BloodGroup} = JSON.parse(add_data);
-        this.additional_details = {
-              Email : {value:Email,icon:MailIcon},
-              Gender : {value:Gender,icon:GenderIcon}, 
-              Father : {value:Father,icon:FatherIcon}, 
-              Address1 : {value:Address1,icon:MapIcon},
-              Address2 : {value:Address2,icon:MapIcon},
-              City : {value:City,icon:CityIcon},
-              State : {value:State,icon:StateIcon},
-              Spouce : {value:Spouce,icon:SpouceIcon},
-              PAN : {value:PAN,icon:CardIcon},
-              AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
-              DOB : {value:DOB,icon:DOBIcon},
-              AgeinYear : {value:AgeinYear,icon:AgeIcon},
-              Vehicle : {value:Vehicle,icon:VehicleIcon},
-              BloodGroup : {value:BloodGroup,icon:BloodIcon},
-            }
-
-        }
-        this.state = {
+            this.state = {
             isModalOpen : false,
             error:null,
+            additional_details :{
+              Fullname: {value:fullname,icon:NameIcon,checked:false},
+              Mobile: {value:userName,icon:MobileIcon,checked:false},
+              Email : {value:Email,icon:MailIcon,checked:false},
+              Gender : {value:Gender,icon:GenderIcon,checked:false}, 
+              Father : {value:Father,icon:FatherIcon,checked:false}, 
+              Spouce : {value:Spouce,icon:SpouceIcon,checked:false},
+              Address1 : {value:Address1,icon:MapIcon,checked:false},
+              Address2 : {value:Address2,icon:MapIcon,checked:false},
+              City : {value:City,icon:CityIcon,checked:false},
+              State : {value:State,icon:StateIcon,checked:false},
+              PAN : {value:PAN,icon:CardIcon,checked:false},
+              AadhaarCard : {value:AadhaarCard,icon:AadharIcon,checked:false},
+              DOB : {value:new Date(DOB).toLocaleString('en-GB', { day:'2-digit',month:'2-digit',year:'numeric' }),icon:DOBIcon,checked:false},
+              AgeinYear : {value:AgeinYear,icon:AgeIcon,checked:false},
+              Vehicle : {value:Vehicle,icon:VehicleIcon,checked:false},
+              BloodGroup : {value:BloodGroup,icon:BloodIcon,checked:false},
+            },
         }
+        }
+        
     }
     showDate(date:Date){
         return date.toString().split('T')[0]
@@ -102,25 +116,31 @@ export default class ShareInfo extends React.Component<props, states> {
     }
 
     generateQrCode(){
-        // BarcodeScanner.encode(BarcodeScanner.Encode.TEXT_TYPE,this.state)
-        // .then(data => {
-        //     console.log(data)
-        // },error => {
-        //     console.log("Error : ",error)
-        // });
-        if(this.state["sharefields"])
+        if(this.state.additional_details)
             this.setShowModal(true)
         else
             this.setState({error:"Please select atleast one value"})
     }
 
+    getQRData(){
+        let shares: string[] = [];
+        Object.keys(this.state.additional_details).map((item) =>{
+            let val = `${item} : ${this.state.additional_details[item]["value"]}`
+            if(this.state.additional_details[item]["checked"])  
+                shares.push(val)  
+        });
+        console.log(shares);
+        return JSON.stringify(shares);
+
+    }
+
     handleChange = (e: any) => {
         const { value, name } = e.target;
-        this.setState({sharefields:{
-            ...this.state["sharefields"], 
-            [name]: value} }
+        let oldval = this.state.additional_details[name]
+        this.setState({additional_details:{
+            ...this.state.additional_details, 
+            [name]: {value,icon:oldval.icon,checked:true} }}
         );
-        console.log(this.state);
     };
 
 
@@ -145,7 +165,7 @@ export default class ShareInfo extends React.Component<props, states> {
                         <h1>Scan This Code to get Data</h1>
                   </div>
                   <div className="generated-qrcode text-center">
-                        <QrCode value={JSON.stringify(this.state["sharefields"])} />
+                        <QrCode value={this.getQRData()} />
                   </div>
                     <div onClick={() => this.setShowModal(false)} className="text-center qr-close-sign ">
                         <IonIcon icon={close} size="large" />
@@ -156,7 +176,7 @@ export default class ShareInfo extends React.Component<props, states> {
             Select information to be shared
         </div>
         <div className="shareinfo-list">
-            <div className='profile-card-item'>
+            {/* <div className='profile-card-item'>
                 <div className="check-box-icon">
                     <IonCheckbox slot="start" color="primary" value={this.main_details["fullname"]} name="fullname" onIonChange={this.handleChange} />
                     <img src={NameIcon} height="30" width="28" />
@@ -168,14 +188,14 @@ export default class ShareInfo extends React.Component<props, states> {
             </div>
             <div className='profile-card-item'>
                 <div className="check-box-icon">
-                    <IonCheckbox slot="start" color="primary" value={this.main_details["userName"]} name="username" onIonChange={this.handleChange} />
+                    <IonCheckbox slot="start" color="primary" value={this.main_details["mobile"]} name="mobile" onIonChange={this.handleChange} />
                     <img src={MobileIcon} height="30" width="28" />
                 </div>
                 <div className="details">
                     <span>Mobile</span>
-                    <p>{this.main_details["userName"]}</p>
+                    <p>{this.main_details["mobile"]}</p>
                 </div>
-            </div>
+            </div> */}
             {/* <div className='profile-card-item'>
                 <div className="check-box-icon">
                     <IonCheckbox slot="start" color="primary" value={this.main_details["userEmail"]} name="useremail" onIonChange={this.handleChange}/>
@@ -196,16 +216,16 @@ export default class ShareInfo extends React.Component<props, states> {
                     <p>{this.main_details["nickname"]}</p>
                 </div>
             </div> */}
-            {Object.keys(this.additional_details).map((item)=>{
+            {Object.keys(this.state.additional_details).map((item)=>{
                 return(
                 <div className='profile-card-item' key={item}>
                     <div className="check-box-icon">
-                        <IonCheckbox slot="start" color="primary" value={this.additional_details[item]["value"]}  onIonChange={this.handleChange} name={item}/>
-                        <img src={this.additional_details[item]["icon"]} height="30" width="28" />
+                        <IonCheckbox slot="start" color="primary" value={this.state.additional_details[item]["value"]}  onIonChange={this.handleChange} name={item}/>
+                        <img src={this.state.additional_details[item]["icon"]} height="30" width="28" />
                     </div>
                     <div className="details">
                         <span>{item}</span>
-                        <p>{this.additional_details[item]["value"] ? item ==  "DOB" ? this.showDate(this.additional_details[item]["value"]) : this.additional_details[item]["value"] : "Not Uploaded"}</p>
+                        <p>{this.state.additional_details[item]["value"] ? item ==  "DOB" ? this.showDate(this.state.additional_details[item]["value"]) : this.state.additional_details[item]["value"] : "Not Uploaded"}</p>
                     </div>
                 </div>)
             })}

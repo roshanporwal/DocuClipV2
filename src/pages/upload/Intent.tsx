@@ -69,7 +69,7 @@ class Intent extends React.Component<props, states> {
         if (response.data.status === "success") {
           this.setState({
             isLoading: false,
-            view: (
+            view: ( 
               <SaveFileData
                 responseData={response.data}
                 parentSetState={this.parentSetState}

@@ -242,12 +242,11 @@ export default class ChangeInfo extends React.Component<props, states> {
     const name: string = event.target.name
     const value: string = event.target.value
 
-    this.setState({additionalData :{ ...this.state.additionalData,[name]: value }} as any)
+      this.setState({additionalData :{ ...this.state.additionalData,[name]: value }} as any)
 
-    if(this.state.additionalData.DOB != ""){
+    if(this.state.additionalData.DOB != ""){ 
       let age =  this.getAge(this.state.additionalData.DOB);
       this.setState({additionalData :{ ...this.state.additionalData,AgeinYear: age}} as any)
-      console.log(this.state.additionalData);
     }
   }
 
@@ -278,16 +277,7 @@ export default class ChangeInfo extends React.Component<props, states> {
           message={"Please wait..."}
         />
 
-        <IonRow>
-          <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Mobile No</IonLabel>
-            <IonInput
-              type='text'
-              name='username'
-              value={this.state.username}
-              onIonChange={this.onChangeHandler}
-            />
-          </IonItem>
+        
 {/* 
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Email</IonLabel>
@@ -299,7 +289,9 @@ export default class ChangeInfo extends React.Component<props, states> {
             />
           </IonItem> */}
 
-          <IonItem style={inputFieldStyle}>
+          
+          <IonRow>
+            <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'> Full Name</IonLabel>
             <IonInput
               type='text'
@@ -308,7 +300,16 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onChangeHandler}
             />
           </IonItem>
-
+          <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Mobile No</IonLabel>
+            <IonInput
+              type='text'
+              name='username'
+              value={this.state.username}
+              onIonChange={this.onChangeHandler}
+            />
+          </IonItem>
+          
           {/* <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Nickname</IonLabel>
             <IonInput
@@ -333,6 +334,16 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
+          
+           <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Gender</IonLabel>
+            <IonInput
+              type='text'
+              name='Gender'
+              value={this.state.additionalData.Gender}
+              onIonChange={this.onAdditionalChangeHandler}
+            />
+          </IonItem>
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>Father</IonLabel>
             <IonInput
@@ -342,12 +353,12 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
-           <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Gender</IonLabel>
+          <IonItem style={inputFieldStyle}>
+            <IonLabel position='floating'>Spouse</IonLabel>
             <IonInput
               type='text'
-              name='Gender'
-              value={this.state.additionalData.Gender}
+              name='Spouce'
+              value={this.state.additionalData.Spouce}
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
@@ -388,15 +399,7 @@ export default class ChangeInfo extends React.Component<props, states> {
               onIonChange={this.onAdditionalChangeHandler}
             />
           </IonItem>
-          <IonItem style={inputFieldStyle}>
-            <IonLabel position='floating'>Spouse</IonLabel>
-            <IonInput
-              type='text'
-              name='Spouce'
-              value={this.state.additionalData.Spouce}
-              onIonChange={this.onAdditionalChangeHandler}
-            />
-          </IonItem>
+          
           
           <IonItem style={inputFieldStyle}>
             <IonLabel position='floating'>PAN</IonLabel>
@@ -420,7 +423,7 @@ export default class ChangeInfo extends React.Component<props, states> {
             <IonLabel position='stacked'>DOB</IonLabel>  
             <IonDatetime
                 style={{width: "100%"}}
-                displayFormat="MMMM DD, YYYY"
+                displayFormat="DD, MMMM YYYY"
                 min="1950"
                 max="2022"
                 name='DOB'
