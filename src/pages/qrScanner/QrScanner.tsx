@@ -1,14 +1,15 @@
 import React from 'react'
-import QrReader from 'react-qr-reader'
+// import QrReader from 'react-qr-reader'
+import { BarcodeScanner } from '@ionic-native/barcode-scanner'
 
 // import auth functions
 import { isLoggedIn } from "../../components/login/TokenProvider";
 
 import { IonAlert } from '@ionic/react';
-import { Plugins } from "@capacitor/core";
+import { Plugins, PermissionType, CameraResultType } from "@capacitor/core";
 import Axios from 'axios';
 import apiRoutes from '../../components/Routes';
-const { Camera } = Plugins;
+const { Camera, Permissions  } = Plugins;
 
 
 type props = {}
@@ -16,6 +17,8 @@ type states = {
   error: string,
   delay: number,
   style: object,
+  hasCameraPermission: string | null
+  src: any
 }
 
 class QrScanner extends React.Component<props, states> {
@@ -25,7 +28,9 @@ class QrScanner extends React.Component<props, states> {
     this.state = {
       error: '',
       delay: 100,
-      style: { marginTop: "2rem"}
+      style: { border: '0px' },
+      hasCameraPermission: null,
+      src: ""
     }
 
     // redirect user to homepage if the user is not logged in
@@ -37,19 +42,41 @@ class QrScanner extends React.Component<props, states> {
 
     this.handleScan = this.handleScan.bind(this)
     this.handleError = this.handleError.bind(this)
-  }   
+    this.takePicture = this.takePicture.bind(this)
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Uri
+    });
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    var imageUrl = image.webPath;
+    // Can be set to the src of an image now
+    this.setState({ src: imageUrl })
+  }
+
+  async componentDidMount() {
+    // test code - https://capacitorjs.com/docs/apis/permissions
+    const hasPermission = await Permissions.query({ name: PermissionType.Camera });
+    console.log('hasPermission: ', hasPermission);
+    this.setState({ hasCameraPermission: hasPermission.state })
+    this.openScanner();
+  }
 
   handleScan(data: any){
     // if data is not null, then execute the code
     if (data) {
       // dev
       //var regex = /(http|https)(:\/\/)(localhost:3000)(\/download\/)/
-      console.log(data)
+
       // production
-      var regex = /(http|https)(:\/\/)(docuclip.app\/ci4-dms-updated\/public\/download\/)/
-      //var regex = /(http|https)(:\/\/)(localhost\/docuclip.app\/ci4-dms-updated\/public\/download\/)/
+      var regex = /(http|https)(:\/\/)(li1031-136.members.linode.com\/public_html\/ci4-dms-updated\/public\/download\/)/
       var result = regex.test(data)
-      console.log(result)
       if (result === true) {
         data = data.replace(regex, "")
         const formData = new FormData()
@@ -57,10 +84,10 @@ class QrScanner extends React.Component<props, states> {
         Axios.post(apiRoutes.statistics.scan, formData).catch((e) => console.log('could not count', e))
         window.location.href = `/file/${data}`;
       } else {
-        this.setState({ style: {border: '10px solid green'} })
+        this.setState({ style: {border: '5px solid #ff7373'} })
       }
     } else {
-      this.setState({ style: {border: '10px solid red'} })
+      this.setState({ style: {border: '0px'} })
     }
   }
 
@@ -71,6 +98,17 @@ class QrScanner extends React.Component<props, states> {
       })
 
       window.location.replace("/category")
+    }
+  }
+
+  openScanner = async () => {
+    try {
+      const data = await BarcodeScanner.scan();
+      console.log(`Barcode data: ${data.text}`);
+      this.handleScan(data.text);
+    } catch (error) {
+      console.log(error);
+      this.handleError('Error');
     }
   }
 
@@ -86,14 +124,18 @@ class QrScanner extends React.Component<props, states> {
           }]}
         />
 
-        <div style={this.state.style} >
-          <QrReader
+        {window.location.href}
+        {this.state.hasCameraPermission === null ? "Waiting for response" : <p>{this.state.hasCameraPermission}</p>}
+        <img src={this.state.src} alt="of some sort" />
+
+        <div style={this.state.style}>
+          {/* <QrReader
             delay={300}
             onError={this.handleError}
             onScan={this.handleScan}
-            style={{ width: '100%', height: '36.5vh',}}
+            style={{ width: '100%', height: '100vh' }}
             showViewFinder={true}
-          />
+          /> */}
         </div>
       </React.Fragment>
     )

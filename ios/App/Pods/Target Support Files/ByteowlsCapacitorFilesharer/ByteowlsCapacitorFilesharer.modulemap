@@ -1,0 +1,6 @@
+framework module ByteowlsCapacitorFilesharer {
+  umbrella header "ByteowlsCapacitorFilesharer-umbrella.h"
+
+  export *
+  module * { export * }
+}

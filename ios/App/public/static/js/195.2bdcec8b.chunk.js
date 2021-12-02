@@ -1,2 +1,0 @@
-(this.webpackJsonpdocuclip=this.webpackJsonpdocuclip||[]).push([[195],{356:function(c,p,s){"use strict";s.r(p),p.default=s.p+"static/media/server-1.243d8979.png"}}]);
-//# sourceMappingURL=195.2bdcec8b.chunk.js.map

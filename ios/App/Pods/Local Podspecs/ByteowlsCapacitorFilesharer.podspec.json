@@ -1,0 +1,23 @@
+{
+  "name": "ByteowlsCapacitorFilesharer",
+  "version": "2.0.0",
+  "summary": "Capacitor plugin to download and share files for the Web, Android and iOS",
+  "license": "MIT",
+  "homepage": "https://github.com/moberwasserlechner/capacitor-filesharer",
+  "authors": "Michael Oberwasserlechner",
+  "platforms": {
+    "ios": "11.0"
+  },
+  "dependencies": {
+    "Capacitor": [
+
+    ]
+  },
+  "source": {
+    "git": "https://github.com/moberwasserlechner/capacitor-filesharer",
+    "tag": "2.0.0"
+  },
+  "source_files": "ios/ByteowlsCapacitorFilesharer/Source/*.{swift,h,m}",
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}

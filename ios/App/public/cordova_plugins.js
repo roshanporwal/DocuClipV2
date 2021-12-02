@@ -2,6 +2,14 @@
   cordova.define('cordova/plugin_list', function(require, exports, module) {
     module.exports = [
       {
+          "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
+          "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
+          "pluginId": "phonegap-plugin-barcodescanner",
+        "clobbers": [
+          "cordova.plugins.barcodeScanner"
+        ]
+        },
+      {
           "id": "cordova-plugin-file-opener2.FileOpener2",
           "file": "plugins/cordova-plugin-file-opener2/www/plugins.FileOpener2.js",
           "pluginId": "cordova-plugin-file-opener2",
@@ -196,7 +204,8 @@
     {
       "cordova-plugin-fcm-with-dependecy-updated": "7.8.0",
       "cordova-plugin-file": "6.0.2",
-      "cordova-plugin-file-opener2": "3.0.5"
+      "cordova-plugin-file-opener2": "3.0.5",
+      "phonegap-plugin-barcodescanner": "8.1.0"
     };
     // BOTTOM OF METADATA
     });
