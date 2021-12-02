@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "553190042290",
+    "firebase_url": "https://docuclip-demo.firebaseio.com",
+    "project_id": "docuclip-demo",
+    "storage_bucket": "docuclip-demo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553190042290:android:4c670c445345da3dbff7ab",
+        "android_client_info": {
+          "package_name": "com.innothoughts.docuclip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553190042290-honr84bihbrdbv4gdl1l0mqj2b79jme3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlfyHoIN4Mmnmb4n38ktekpvr7hnH_TZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553190042290-honr84bihbrdbv4gdl1l0mqj2b79jme3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
