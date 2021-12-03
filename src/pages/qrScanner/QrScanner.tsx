@@ -148,7 +148,7 @@ class QrScanner extends React.Component<props, states> {
 
         {window.location.href}
         {this.state.hasCameraPermission === null ? "Waiting for response" : <p>{this.state.hasCameraPermission}</p>}
-        <img src={this.state.src} alt="of some sort" />
+        {/* <img src={this.state.src} alt="of some sort" /> */}
 
         <div style={this.state.style}>
           {/* <QrReader

@@ -25,8 +25,10 @@
     <param name="android-package" value="com.hiddentao.cordova.filepath.FilePath"/>
     <param name="onload" value="true"/>
   </feature>
-<feature name="BarcodeScanner">
-+    <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner"/>
-+  </feature>
+
+  <feature name="BarcodeScanner">
+    <param name="android-package" value="com.phonegap.plugins.barcodescanner.BarcodeScanner"/>
+  </feature>
+
   
 </widget>
