@@ -14,11 +14,17 @@
     z-index: -1;
     margin-top:5rem;
 }
+.login-background-image img {
+  height: 37h;
+}
 
 .otp-background-image {
     z-index: -1;
     margin-top:3rem;
     align-items: center;
+}
+.otp-background-image img{
+  height: 30vh;
 }
 
 .login-main-panel {

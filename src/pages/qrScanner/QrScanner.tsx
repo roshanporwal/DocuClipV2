@@ -70,7 +70,7 @@ class QrScanner extends React.Component<props, states> {
 
   handleScan(data: any){
     // if data is not null, then execute the code
-    if (data) {
+    /* if (data) {
       // dev
       //var regex = /(http|https)(:\/\/)(localhost:3000)(\/download\/)/
 
@@ -88,6 +88,28 @@ class QrScanner extends React.Component<props, states> {
       }
     } else {
       this.setState({ style: {border: '0px'} })
+    } */
+    // if data is not null, then execute the code
+    if (data) {
+      // dev
+      //var regex = /(http|https)(:\/\/)(localhost:3000)(\/download\/)/
+      console.log(data)
+      // production
+      var regex = /(http|https)(:\/\/)(docuclip.app\/ci4-dms-updated\/public\/download\/)/
+      //var regex = /(http|https)(:\/\/)(localhost\/docuclip.app\/ci4-dms-updated\/public\/download\/)/
+      var result = regex.test(data)
+      console.log(result)
+      if (result === true) {
+        data = data.replace(regex, "")
+        const formData = new FormData()
+        formData.append('publicName', data)
+        Axios.post(apiRoutes.statistics.scan, formData).catch((e) => console.log('could not count', e))
+        window.location.href = `/file/${data}`;
+      } else {
+        this.setState({ style: {border: '10px solid green'} })
+      }
+    } else {
+      this.setState({ style: {border: '10px solid red'} })
     }
   }
 

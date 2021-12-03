@@ -163,7 +163,7 @@ class OtpVerify extends React.Component<Props, States> {
           </div>
 
           <div className='row-vertical otp-background-image '>
-            <img src={backgroundImage} alt='welcome'  width="280" />
+            <img src={backgroundImage} alt='welcome'  />
           </div>
 
           <div className='main-container'>
