@@ -75,6 +75,10 @@
   font-size: 18px;
   font-weight: 700;
   text-decoration: underline;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
 }
 .generated-qrcode{
   top: 30%;
