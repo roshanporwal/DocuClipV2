@@ -229,67 +229,6 @@ const Item: React.FC<props> = (props) => {
         path: "docuclip/" + uniqueFilename,
         directory: FilesystemDirectory.Documents,
       })
-      .catch(async () => {
-        // if readFile fails, then file doesn't exist, lets get on downloading it
-        const formData = new FormData()
-        formData.append("filename", props.fileName)
-        formData.append("filePath", props.path)
-        formData.append("ext", props.ext)
-
-        await axios
-          .post(apiRoutes.fileDownload, formData)
-          .then((response) => {
-            if (response.data.status === "success") {
-              contentType = response.data.contentType
-              return response.data
-            } else {
-              console.log("Verbose error: ", response.data)
-              setError(response.data.error)
-              setLoading(false)
-            }
-          })
-          .then((response: DownloadData) => {
-            // create directory
-            if(!response){
-              return null;
-            }
-            Filesystem.mkdir({
-              path: "docuclip",
-              directory: FilesystemDirectory.Documents,
-            })
-              .catch(() => {}) // do nothing if directory exists error is thrown
-              .then(() => {
-                Filesystem.writeFile({
-                  path: "docuclip/" + uniqueFilename,
-                  data: response.data,
-                  directory: FilesystemDirectory.Documents,
-                })
-                  .then((response) => {
-                    // good good
-                    // console.log('response: ', response);
-                  })
-                  .catch((error) => {
-                    console.log("Verbose error: ", error)
-                    setError(error)
-
-                  })
-              })
-          })
-          .catch(async (error) => {
-            // throw this error if internet is not available
-            const { Network } = Plugins
-            let status = await Network.getStatus()
-
-            if (status.connected === false) {
-              setError(
-                "Cannot connect to the internet. Unable to download file"
-              )
-            }
-
-            // handle error file download + write errors
-            throw new Error(error)
-          })
-      })
       .then(() => {
         // file exists and is downloaded, now open the file
         Filesystem.getUri({
@@ -335,12 +274,75 @@ const Item: React.FC<props> = (props) => {
           }
         )
       })
-      .catch((error) => {
+      .catch(async () => {
+        // if readFile fails, then file doesn't exist, lets get on downloading it
+        const formData = new FormData()
+        formData.append("filename", props.fileName)
+        formData.append("filePath", props.path)
+        formData.append("ext", props.ext)
+
+        await axios
+          .post(apiRoutes.fileDownload, formData)
+          .then((response) => {
+            if (response.data.status === "success") {
+              contentType = response.data.contentType
+              return response.data
+            } else {
+              console.log("Verbose error: ", response.data)
+              setError(response.data.error)
+              setLoading(false)
+            }
+          })
+          .then((response: DownloadData) => {
+            // create directory
+            if(!response){
+              return null;
+            }
+            Filesystem.mkdir({
+              path: "docuclip",
+              directory: FilesystemDirectory.Documents,
+            })
+              .catch(() => {}) // do nothing if directory exists error is thrown
+              .then(() => {
+                Filesystem.writeFile({
+                  path: "docuclip/" + uniqueFilename,
+                  data: response.data,
+                  directory: FilesystemDirectory.Documents,
+                })
+                  .then((response) => {
+                    setLoading(false)
+                    // good good
+                    // console.log('response: ', response);
+                  })
+                  .catch((error) => {
+                    console.log("Verbose error: ", error)
+                    setError(error)
+                    setLoading(false)
+                  })
+              })
+          })
+          .catch(async (error) => {
+            // throw this error if internet is not available
+            const { Network } = Plugins
+            let status = await Network.getStatus()
+
+            if (status.connected === false) {
+              setError(
+                "Cannot connect to the internet. Unable to download file"
+              )
+            }
+
+            // handle error file download + write errors
+            throw new Error(error)
+          })
+      })
+      
+      /* .catch((error) => {
         // print the errors
         console.log("Error", error)
         setLoading(false)
         setError(error)
-      })
+      }) */
   }
 
   const shareClickHandler = async () => {
@@ -589,9 +591,9 @@ const Item: React.FC<props> = (props) => {
 
       <div className='file-item-container'>
         
-        <div className='list-item'>
+        <div className='list-item' onClick={itemClickHandler} >
           
-          <div className={props.metadata.is_verified == 1 ? 'file-icon' : 'file-icon-unverified'} onClick={itemClickHandler}>
+          <div className={props.metadata.is_verified == 1 ? 'file-icon' : 'file-icon-unverified'} >
             {/* <IonIcon src={documentOutline} size="large" /> */}
             {props.metadata.is_verified == 1 ?  
               <div className="is_certified">
@@ -603,7 +605,7 @@ const Item: React.FC<props> = (props) => {
               : null} 
             <img src={extImg} alt={props.ext} width='58' height='58' />
           </div>
-          <div className='file-info' onClick={itemClickHandler}>
+          <div className='file-info' >
             {props.showCategoryTitle === true ? (
               <span className='heading'>
                 <b>{infoArray[0]}</b>

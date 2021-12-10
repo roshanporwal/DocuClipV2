@@ -2,6 +2,7 @@ import {
   IonAlert,
   IonButton,
   IonDatetime,
+  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -9,6 +10,7 @@ import {
   IonRow,
 } from "@ionic/react"
 import axios from "axios"
+import { arrowBack } from "ionicons/icons"
 import React from "react"
 import { JsxEmit } from "typescript"
 import { destroyToken, getToken, isLoggedIn, setToken } from "../../components/login/TokenProvider"
@@ -258,6 +260,9 @@ export default class ChangeInfo extends React.Component<props, states> {
 
     return (
       <React.Fragment>
+        <div onClick = {()=>window.history.back()}>
+                <IonIcon icon={arrowBack} class="profile-page-icon" />
+            </div>
         <IonAlert
           isOpen={!!this.state.error}
           message={this.state.error}

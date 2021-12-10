@@ -2,7 +2,7 @@ import { IonAlert, IonCheckbox, IonContent, IonIcon, IonModal, } from "@ionic/re
 import React from "react"
 import { getToken, isLoggedIn } from "../../components/login/TokenProvider"
 import "./profile.css"
-import { close, share } from "ionicons/icons"
+import { arrowBack, close, share } from "ionicons/icons"
 import QrCode from 'qrcode.react'
 
 import AadharIcon from '../../assets/profile-icons/aadhaar-icon.png'
@@ -173,6 +173,9 @@ export default class ShareInfo extends React.Component<props, states> {
                 </IonContent>
           </IonModal>
         <div className="shareinfo-title">
+            <div onClick = {()=>window.history.back()}>
+                <IonIcon icon={arrowBack} class="profile-page-icon" />
+            </div>
             Select information to be shared
         </div>
         <div className="shareinfo-list">
