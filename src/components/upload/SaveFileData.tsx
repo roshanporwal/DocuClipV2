@@ -131,13 +131,27 @@ class SaveFileData extends React.Component<props, state> {
 
   saveClickHandler = () => {
     // throw error if the filename is empty
+    console.log(this.state)
+    //return ; */
     if (!this.state.filename) {
       // this.setState({ filename: this.makeId(7) })
       this.props.parentSetState("error", "Filename cannot be empty")
       return
     }
+    if (!this.state.selectedCategory || !this.state.additionalFieldsData) {
+      // this.setState({ filename: this.makeId(7) })
+      this.props.parentSetState("error", "Fields cannot be empty")
+      return
+    }
+
 
     // pack add the data input by user, including data from AdditionalFields to upload to the server
+
+    let today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //As January is 0.
+    var yyyy = today.getFullYear();
+    let date_now = yyyy+"/"+mm+'/'+dd; 
     const dataForm = new FormData();
     dataForm.append("userId", getToken().userId);
     dataForm.append("userName", getToken().userName);
@@ -164,14 +178,13 @@ class SaveFileData extends React.Component<props, state> {
     );
     dataForm.append(
       "eventOn",
-      (this.state.additionalFieldsData?.eventOn || 'null') as string
+      (this.state.additionalFieldsData?.eventOn || date_now) as string
     );
     dataForm.append(
       "eventEnd",
-      (this.state.additionalFieldsData?.eventEnd || 'null') as string
+      (this.state.additionalFieldsData?.eventEnd || date_now) as string
     );
 
-    console.log(dataForm)
     axios
       .post(apiRoutes.saveData, dataForm, {})
       .then((response) => {
