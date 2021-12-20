@@ -661,15 +661,7 @@ class FileView extends React.Component<props, states> {
           </IonItem>
           {this.state.isOwner && (
             <React.Fragment>
-              {/* <IonItem
-                onClick={() =>
-                  (window.location.href = "/change/" + this.props.file.publicName)
-                }
-                className='ion-activatable ripple-parent'
-              >
-                Edit Info
-                <IonRippleEffect></IonRippleEffect>
-              </IonItem> */}
+
               <IonItem
                 onClick={() => this.setState({ isDeleteConfirmOpen: true })}
                 className='ion-activatable ripple-parent'

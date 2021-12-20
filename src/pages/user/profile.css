@@ -51,12 +51,11 @@
 .profile-button {
     color: black;
     background-color: #B4ECF0;
+    padding: 15px;
 
     font-size: 32 !important;
     font-weight: bold;
     min-width: 150px;
-
-    padding: 15px;
 
     border-radius: 15px !important;
     box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.17), 0px 3.28515px 6.5703px rgba(0, 0, 0, 0.117297), 0px 1.59488px 3.18976px rgba(0, 0, 0, 0.0945694), 0px 0.781839px 1.56368px rgba(0, 0, 0, 0.0754306), 0px 0.30914px 0.618281px rgba(0, 0, 0, 0.0527031);
@@ -72,12 +71,14 @@
 }
 
 .shareinfo-title{
+  
   font-size: 18px;
   font-weight: 700;
+  align-items: center;
   text-decoration: underline;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  
   justify-content: space-around;
 }
 .generated-qrcode{
@@ -87,8 +88,8 @@
 }
 
 .qr-close-sign{
-  top: 70%;
   left: 45%;
+  top: 70%;
   position: absolute;
 }
 .qr-modal{

@@ -176,51 +176,6 @@ export default class ChangeInfo extends React.Component<props, states> {
         localStorage.setItem('Additional Data',JSON.stringify(this.state.additionalData))
       }
 
-  //  localStorage.setItem('additional-data',additionalData.toString())
-
-    // if (this.state.newPassword === this.state.newPasswordRepeat) {
-    //   const { userName } = getToken()
-
-    //   let credentialData = new FormData()
-    //   credentialData.append("username", userName)
-    //   credentialData.append("password", this.state.oldPassword)
-    //   axios
-    //     .post(apiRoutes.login, credentialData)
-    //     .then((response) => {
-    //       if (response.data.status !== "success") {
-    //         this.setState({
-    //           isLoading: false,
-    //           error: "Your old password is incorrect",
-    //         })
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       this.setState({
-    //         isLoading: false,
-    //         error: error,
-    //       })
-    //     })
-    //     .then(() => {
-    //       const { userId } = getToken()
-
-    //       const passwordData = new FormData()
-    //       passwordData.append('userId', userId)
-    //       passwordData.append('newPassword', this.state.newPassword)
-    //       axios.post(apiRoutes.changePassword, passwordData)
-    //         .then((response) => {
-    //           if (response.data.status === 'success') {
-    //             window.location.replace('/profile')
-    //           }
-    //         }).catch((error) => {
-    //           console.log('error: ', error);
-    //           this.setState({
-    //             isLoading: false,
-    //             error: "There was an internal error"
-    //           })
-    //         })
-    //     })
-    // } else this.setState({ error: "New passwords do not match" })
-
     this.setState({ isLoading: false })
   }
 
