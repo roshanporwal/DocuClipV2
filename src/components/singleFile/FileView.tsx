@@ -661,15 +661,7 @@ class FileView extends React.Component<props, states> {
           </IonItem>
           {this.state.isOwner && (
             <React.Fragment>
-              {/* <IonItem
-                onClick={() =>
-                  (window.location.href = "/change/" + this.props.file.publicName)
-                }
-                className='ion-activatable ripple-parent'
-              >
-                Edit Info
-                <IonRippleEffect></IonRippleEffect>
-              </IonItem> */}
+
               <IonItem
                 onClick={() => this.setState({ isDeleteConfirmOpen: true })}
                 className='ion-activatable ripple-parent'
@@ -759,6 +751,8 @@ class FileView extends React.Component<props, states> {
               {/* or the user doesn't already have the file saved */}
               {!this.state.isOwner && !this.state.hasFile && (
                 <div className="row-vertical">
+                  {this.state.notificationId ? (
+                    <>
                     <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
                       <button
                         className='custom-button'
@@ -767,7 +761,7 @@ class FileView extends React.Component<props, states> {
                       >
                         Accept File
                       </button>
-                      {this.state.notificationId ? (
+                      
                         <div
                           className='custom-button'
                           onClick={() =>
@@ -776,7 +770,7 @@ class FileView extends React.Component<props, states> {
                         >
                           Reject
                         </div>
-                      ) : null}
+                      
                       </div>
                       <div>
                         <p>or</p>
@@ -787,7 +781,29 @@ class FileView extends React.Component<props, states> {
                         >
                             View
                         </button>
-                        </div> 
+                      </div>
+                      </> 
+                      ) : (
+                        <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between'}}>
+                      <button
+                        className='custom-button'
+                        onClick={() => this.acceptConfirmHandler()}
+                        disabled={this.state.isAcceptClickedOnce}
+                      >
+                        Accept File
+                      </button>
+                      
+                        <div
+                          className='custom-button'
+                          onClick={() =>
+                            this.viewClickHandler
+                          }
+                        >
+                          View
+                        </div>
+                      
+                      </div>
+                      )}
                 </div>
               )}
               {/* Show this button to redirect user to their own file */}
