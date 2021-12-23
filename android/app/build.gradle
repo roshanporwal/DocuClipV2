@@ -1,18 +1,27 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+
 android {
+    signingConfigs {
+        release {
+            storeFile file('F:\\web development\\DocuClipV2\\key\\Docuclip_keystore.jks')
+            storePassword 'Docuclip12345'
+            keyAlias 'newKey'
+            keyPassword 'Docuclip12345'
+            v2SigningEnabled false
+        }
+    }
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.innothoughts.docuclip"
+        applicationId "com.innothoughts.docuclipv2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 3
-        versionName "1.1"
+        versionName "1.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
     }
     buildTypes {
         release {
-            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -43,7 +52,7 @@ dependencies {
 }
 
 apply from: 'capacitor.build.gradle'
-
+apply plugin: 'com.google.gms.google-services'
 //try {
 //    def servicesJSON = file('google-services.json')
 //    if (servicesJSON.text) {

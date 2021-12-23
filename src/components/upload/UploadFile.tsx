@@ -15,6 +15,7 @@ import {
 } from "@capacitor/core"
 import { now } from "moment";
 import { Server } from "http";
+import GoBack from "../goBack";
 
 type props = {
   parentSetState: any;
@@ -191,7 +192,7 @@ class UploadFile extends React.Component<props, states> {
             }
           ]}
         />
-
+      <GoBack />
       
       <div className="vertically-center">
         <div className="text-center">

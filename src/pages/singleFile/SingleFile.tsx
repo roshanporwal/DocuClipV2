@@ -14,6 +14,7 @@ import FileView from "../../components/singleFile/FileView";
 
 // import auth functions
 import { isLoggedIn } from "../../components/login/TokenProvider";
+import GoBack from "../../components/goBack";
 
 type props = {
   match: any;
@@ -137,6 +138,7 @@ class SingleFile extends React.Component<props, states> {
   render() {
     return (
       <React.Fragment>
+        <GoBack />
         <IonLoading
           isOpen={!!this.state.isLoading}
           onDidDismiss={() => this.setState({ isLoading: false })}

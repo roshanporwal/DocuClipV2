@@ -1,0 +1,15 @@
+ps : wasted 5hrs for trying to import keys stored in a corrupted keystore 
+keystore and key pass-Docuclip12345
+key alias used = key0
+keystore file :- latest_keystore
+
+steps:
+generate signed app from build tab
+click on apk
+choose existing and find the above key 
+enter keystore password
+choose key0
+enter key alias password
+build 
+go on release folder on android / app / release
+find your apk enjoy

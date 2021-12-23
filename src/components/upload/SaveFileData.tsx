@@ -18,6 +18,7 @@ import AdditionalFields from "./AdditionalFields";
 
 // import auth functions
 import { getToken } from "../login/TokenProvider";
+import GoBack from "../goBack";
 
 type props = {
   responseData: any;
@@ -203,100 +204,104 @@ class SaveFileData extends React.Component<props, state> {
 
   render() {
     return (
-      <div className="save-file-container">
-        <IonRow>
-          <IonCol>
-            <IonItem>
-              <IonLabel position="floating">Filename</IonLabel>
-              <IonInput
-                type="text"
-                name="filename"
-                value={this.state.filename}
-                onIonChange={this.onChangeHandler}
-              ></IonInput>
-            </IonItem>
-          </IonCol>
-        </IonRow>
-
-        <IonRow>
-          <IonCol>
-            <IonItem>
-              <IonLabel position="floating">Category</IonLabel>
-              {this.state.categoryList === null ? null : (
-                <IonSelect
-                  placeholder="Select One"
-                  onIonChange={this.customSelectChangeHandler}
-                >
-                  {this.state.categoryList.map(
-                    (value: string, index: number) => (
-                      <IonSelectOption value={value} key={index}>
-                        {value}
-                      </IonSelectOption>
-                    )
-                  )}
-                </IonSelect>
-              )}
-            </IonItem>
-          </IonCol>
-        </IonRow>
-
-        {this.state.selectedCategory === null ? null : (
+      <>
+      <GoBack />
+        <div className="save-file-container">
+          
           <IonRow>
             <IonCol>
-              {/* Show additional fields based on the category selected above */}
-              <AdditionalFields
-                selectedCategory={this.state.selectedCategory}
-                additionalFields={this.state.additionalFields}
-                parentSetState={this.parentSetState}
-              />
+              <IonItem>
+                <IonLabel position="floating">Filename</IonLabel>
+                <IonInput
+                  type="text"
+                  name="filename"
+                  value={this.state.filename}
+                  onIonChange={this.onChangeHandler}
+                ></IonInput>
+              </IonItem>
             </IonCol>
           </IonRow>
-        )}
 
-        <IonRow>
-          <IonCol>
-            <IonItem>
-              <IonLabel position="floating">Tags</IonLabel>
-              <IonInput
-                type="text"
-                name="tags"
-                value={this.state.tags}
-                onIonChange={this.onChangeHandler}
-              ></IonInput>
-            </IonItem>
-            <IonLabel className="muted" style={{ marginLeft: "15px" }}>
-              Separate tags by comma (,)
-            </IonLabel>
-          </IonCol>
-        </IonRow>
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <IonLabel position="floating">Category</IonLabel>
+                {this.state.categoryList === null ? null : (
+                  <IonSelect
+                    placeholder="Select One"
+                    onIonChange={this.customSelectChangeHandler}
+                  >
+                    {this.state.categoryList.map(
+                      (value: string, index: number) => (
+                        <IonSelectOption value={value} key={index}>
+                          {value}
+                        </IonSelectOption>
+                      )
+                    )}
+                  </IonSelect>
+                )}
+              </IonItem>
+            </IonCol>
+          </IonRow>
 
-        <IonRow style={{ display: "none" }}>
-          <IonCol>
-            <IonItem>
-              <IonLabel position="floating">Phone Numbers</IonLabel>
-              <IonInput
-                type="text"
-                name="emails"
-                value={this.state.emails}
-                onIonChange={this.onChangeHandler}
-              ></IonInput>
-            </IonItem>
-            <IonLabel className="muted" style={{ marginLeft: "15px" }}>
-              Separate tags by comma (,)
-            </IonLabel>
-          </IonCol>
-        </IonRow>
+          {this.state.selectedCategory === null ? null : (
+            <IonRow>
+              <IonCol>
+                {/* Show additional fields based on the category selected above */}
+                <AdditionalFields
+                  selectedCategory={this.state.selectedCategory}
+                  additionalFields={this.state.additionalFields}
+                  parentSetState={this.parentSetState}
+                />
+              </IonCol>
+            </IonRow>
+          )}
 
-        <IonRow>
-          <IonCol >
-            <div className="text-center">
-              <button onClick={this.saveClickHandler} className="upload-button">
-              Save Data
-              </button>
-            </div>
-          </IonCol>
-        </IonRow>
-      </div>
+          <IonRow>
+            <IonCol>
+              <IonItem>
+                <IonLabel position="floating">Tags</IonLabel>
+                <IonInput
+                  type="text"
+                  name="tags"
+                  value={this.state.tags}
+                  onIonChange={this.onChangeHandler}
+                ></IonInput>
+              </IonItem>
+              <IonLabel className="muted" style={{ marginLeft: "15px" }}>
+                Separate tags by comma (,)
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+
+          <IonRow style={{ display: "none" }}>
+            <IonCol>
+              <IonItem>
+                <IonLabel position="floating">Phone Numbers</IonLabel>
+                <IonInput
+                  type="text"
+                  name="emails"
+                  value={this.state.emails}
+                  onIonChange={this.onChangeHandler}
+                ></IonInput>
+              </IonItem>
+              <IonLabel className="muted" style={{ marginLeft: "15px" }}>
+                Separate tags by comma (,)
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol >
+              <div className="text-center">
+                <button onClick={this.saveClickHandler} className="upload-button">
+                Save Data
+                </button>
+              </div>
+            </IonCol>
+          </IonRow>
+        </div>
+      </>
     );
   }
 }

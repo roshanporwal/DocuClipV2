@@ -84,6 +84,7 @@ import AadharCard from '../../assets/sub-categories/Adhaarcard.png'
 import Photo from '../../assets/sub-categories/photo.png'
 import Passport from '../../assets/sub-categories/passport.png'
 import DrivingLiscence from '../../assets/sub-categories/drivinglicence.png'
+import GoBack from "../goBack"
 
 
 
@@ -341,6 +342,7 @@ class SubCategoryHome extends React.Component<props, states> {
                 <FilesListHandler title={this.state.selectedCategory} />
               ) : (
                 <div className='subcategory-slots'>
+                    <GoBack />
                   {this.state.subCategories.map(
                     (category: any, index: number) => {
                       return <SubCategoryItem 

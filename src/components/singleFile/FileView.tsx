@@ -26,6 +26,7 @@ import { FileOpener } from "@ionic-native/file-opener"
 import { FilePath } from "@ionic-native/file-path"
 import { FileEntry } from "@ionic-native/file"
 import { File } from "@ionic-native/file"
+import GoBack from "../goBack"
 
 /**
  * 
@@ -614,6 +615,7 @@ class FileView extends React.Component<props, states> {
   render() {
     return (
       <div>
+        <GoBack />
         <IonAlert
           isOpen={this.state.isDeleteConfirmOpen}
           message='Are you sure you want to delete this file?'

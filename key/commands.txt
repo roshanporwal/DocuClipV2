@@ -1,0 +1,15 @@
+capacitor add android
+npx cap add android
+npm install -g @ionic/cli
+ionic capacitor add android
+ionic capacitor copy android
+ionic build
+ionic cap run android
+npx cap open android
+
+
+1.npm install -g @ionic/cli
+2.ionic build
+3.ionic capacitor add android
+4.ionic capacitor copy android
+5.ionic cap run android   / npx cap open android

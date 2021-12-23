@@ -26,6 +26,7 @@ import apiRoutes from "../../components/Routes"
 // importing auth functions
 import { isLoggedIn, getToken } from "../../components/login/TokenProvider"
 import { downloadCategoryStructure, getSubcategoryName } from "../../components/getSubcategoryName"
+import GoBack from "../../components/goBack"
 
 /*
     This is a code snippet from official docs of react-contextmenu
@@ -347,6 +348,7 @@ class Calendar extends React.Component<props, states> {
   render() {
     return (
       <div>
+        <GoBack />
         <IonLoading
           isOpen={!!this.state.isLoading}
           onDidDismiss={() => this.setState({ isLoading: false })}

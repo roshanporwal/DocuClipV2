@@ -19,6 +19,7 @@ import {
 } from "@capacitor/core"
 import Axios from "axios"
 import moment from "moment"
+import GoBack from "../goBack"
 
 type Props = {
   redirect: string
@@ -816,6 +817,7 @@ class FilesList extends React.Component<Props, States> {
   render() {
     return (
       <React.Fragment>
+      <GoBack />
         <IonAlert
           isOpen={!!this.state.error}
           message={this.state.error}

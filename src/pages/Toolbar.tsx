@@ -6,6 +6,7 @@ import MenuButton from "../assets/category-button.png"
 import Tabs from "../components/Tabs"
 import topSvg from "../assets/top-bg.svg"
 import bottomSvg from "../assets/bottom-bg.svg"
+import GoBack from "../components/goBack"
 //This is the file that calls all other file
 const MenuTemplate: React.FC<{
   name: string

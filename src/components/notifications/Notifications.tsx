@@ -10,6 +10,7 @@ import apiRoutes from "../Routes"
 
 import NotificationEntry from "./NotificationEntry"
 import Certified from '../../assets/certified-icon.png'
+import GoBack from "../goBack"
 
 
 type notifications = {
@@ -129,6 +130,7 @@ class Notifications extends React.Component<props, states> {
   render() {
     return (
       <div className='container'>
+        <GoBack />
 {/*            <NotificationEntry id="12" action="SHARE_NOTIFY"  text="This is a test Notification"  public_name="Dine Out Notification" />
  */}  <div className="certified">
         <img

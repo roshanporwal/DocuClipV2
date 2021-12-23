@@ -5,6 +5,7 @@ import {createOutline, shareSocial} from 'ionicons/icons'
 import "./profile.css"
 import UserDetails from "./UserDetails"
 import ProfileImage from "../../assets/blankimage.png"
+import GoBack from "../../components/goBack"
 
 
 type props = {}
@@ -44,6 +45,7 @@ export default class Profile extends React.Component<props, states> {
   render() {
     return (
       <React.Fragment>
+        <GoBack />
         <div className='profile-card-content'>
           {/* <div className="profile-photo">
             <img src={ProfileImage}/>
