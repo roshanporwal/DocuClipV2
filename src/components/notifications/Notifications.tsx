@@ -130,7 +130,7 @@ class Notifications extends React.Component<props, states> {
   render() {
     return (
       <div className='container'>
-        <GoBack />
+    
 {/*            <NotificationEntry id="12" action="SHARE_NOTIFY"  text="This is a test Notification"  public_name="Dine Out Notification" />
  */}  <div className="certified">
         <img

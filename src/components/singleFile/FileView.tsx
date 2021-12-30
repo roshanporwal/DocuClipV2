@@ -615,7 +615,6 @@ class FileView extends React.Component<props, states> {
   render() {
     return (
       <div>
-        <GoBack />
         <IonAlert
           isOpen={this.state.isDeleteConfirmOpen}
           message='Are you sure you want to delete this file?'

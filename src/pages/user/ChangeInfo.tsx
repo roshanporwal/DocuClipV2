@@ -215,9 +215,9 @@ export default class ChangeInfo extends React.Component<props, states> {
 
     return (
       <React.Fragment>
-        <div onClick = {()=>window.history.back()}>
+            {/* <div onClick = {()=>window.history.back()}>
                 <IonIcon icon={arrowBack} class="profile-page-icon" />
-            </div>
+            </div> */}
         <IonAlert
           isOpen={!!this.state.error}
           message={this.state.error}

@@ -348,7 +348,6 @@ class Calendar extends React.Component<props, states> {
   render() {
     return (
       <div>
-        <GoBack />
         <IonLoading
           isOpen={!!this.state.isLoading}
           onDidDismiss={() => this.setState({ isLoading: false })}

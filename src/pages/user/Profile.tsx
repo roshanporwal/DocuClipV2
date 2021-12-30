@@ -45,7 +45,6 @@ export default class Profile extends React.Component<props, states> {
   render() {
     return (
       <React.Fragment>
-        <GoBack />
         <div className='profile-card-content'>
           {/* <div className="profile-photo">
             <img src={ProfileImage}/>

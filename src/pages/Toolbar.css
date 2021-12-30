@@ -33,17 +33,17 @@
 
 .header-margin-tabs {
     z-index: 105;
-    margin-top: 7rem;
-    margin-bottom: 7rem;
+    margin-top: 15vh;
+    margin-bottom: 15vh;
     overflow: scroll;
     height:75vh;
-}
+} 
 
 .toolbar-header {
     color: black;
     font-weight: bold;
     font-size: 27px;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
 }
 
 .toolbar-tabs{

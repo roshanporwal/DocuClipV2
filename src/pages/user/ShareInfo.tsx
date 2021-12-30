@@ -173,9 +173,6 @@ export default class ShareInfo extends React.Component<props, states> {
                 </IonContent>
           </IonModal>
         <div className="shareinfo-title">
-            <div onClick = {()=>window.history.back()}>
-                <IonIcon icon={arrowBack} class="profile-page-icon" />
-            </div>
             Select information to be shared
         </div>
         <div className="shareinfo-list">

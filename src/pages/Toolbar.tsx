@@ -21,9 +21,23 @@ const MenuTemplate: React.FC<{
           <img src={topSvg} />
         </div>
             <div className='toolbar'>
-              <div>
-                <p className='toolbar-header'>{props.name}</p>
-              </div>
+             
+                {props.name == 'Categories' ? 
+                  (
+                      <div>
+                        <p className='toolbar-header'>{props.name}</p>
+                      </div>
+                  )
+                  : 
+                  (
+                     <div style={{display:'flex',alignItems:'center',marginLeft:10,height:'4em'}}>
+                      <GoBack />
+                      <div>
+                        <p className='toolbar-header'>{props.name}</p>
+                      </div>
+                    </div>
+                  )
+                }
               {/* <p style={{ color: "grey", fontSize: "10px", margin: 'auto 0 10px auto' }}>beta_22</p> */}
               <div className="back-to-cat">
                 <IonRouterLink routerLink="/category">

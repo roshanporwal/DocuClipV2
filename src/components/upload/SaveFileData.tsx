@@ -205,7 +205,6 @@ class SaveFileData extends React.Component<props, state> {
   render() {
     return (
       <>
-      <GoBack />
         <div className="save-file-container">
           
           <IonRow>

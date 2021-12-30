@@ -192,7 +192,6 @@ class UploadFile extends React.Component<props, states> {
             }
           ]}
         />
-      <GoBack />
       
       <div className="vertically-center">
         <div className="text-center">

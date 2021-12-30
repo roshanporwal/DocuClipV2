@@ -817,7 +817,7 @@ class FilesList extends React.Component<Props, States> {
   render() {
     return (
       <React.Fragment>
-      <GoBack />
+      
         <IonAlert
           isOpen={!!this.state.error}
           message={this.state.error}

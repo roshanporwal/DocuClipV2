@@ -7,7 +7,7 @@ steps:
 generate signed app from build tab
 click on apk
 choose existing and find the above key 
-enter keystore password
+enter keystore password  
 choose key0
 enter key alias password
 build 

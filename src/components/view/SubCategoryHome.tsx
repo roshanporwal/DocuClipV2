@@ -342,7 +342,6 @@ class SubCategoryHome extends React.Component<props, states> {
                 <FilesListHandler title={this.state.selectedCategory} />
               ) : (
                 <div className='subcategory-slots'>
-                    <GoBack />
                   {this.state.subCategories.map(
                     (category: any, index: number) => {
                       return <SubCategoryItem 
