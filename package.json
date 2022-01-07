@@ -1,6 +1,6 @@
 {
   "name": "docuclip",
-  "version": "0.0.22",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@babel/helper-regex": "^7.10.5",
