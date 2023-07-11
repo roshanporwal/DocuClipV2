@@ -18,10 +18,11 @@ import mapping from "../../ExtensionMapping"
 import TagComponent from "./TagComponent"
 import { getToken } from "../login/TokenProvider"
 import {
-  FilesystemDirectory,
-  FilesystemEncoding,
   Plugins,
+  FilesystemDirectory,
+  FilesystemEncoding
 } from "@capacitor/core"
+
 import { FileOpener } from "@ionic-native/file-opener"
 import { FilePath } from "@ionic-native/file-path"
 import { FileEntry } from "@ionic-native/file"
@@ -358,11 +359,11 @@ class FileView extends React.Component<props, states> {
                   data: response.data,
                   directory: FilesystemDirectory.Data,
                 })
-                  .then((response) => {
+                  .then((response: any) => {
                     // good good
                     // console.log('response: ', response);
                   })
-                  .catch((error) => {
+                  .catch((error: any) => {
                     console.log("Verbose error: ", error)
                   })
               })
@@ -390,7 +391,7 @@ class FileView extends React.Component<props, states> {
           directory: FilesystemDirectory.Data,
           path: "docuclip/" + uniqueFilename,
         }).then(
-          (getUriResult) => {
+          (getUriResult: { uri: any }) => {
             // now use 3rd party apps to open this apps
             const path = getUriResult.uri
             FileOpener.open(path, contentType)
@@ -406,7 +407,7 @@ class FileView extends React.Component<props, states> {
                 }
               })
           },
-          (error) => {
+          (error: any) => {
             console.log("Verbose filesystem get error", error)
           }
         )
@@ -441,7 +442,7 @@ class FileView extends React.Component<props, states> {
                 ],
               })
             })
-            .catch((error) => {
+            .catch((error: any) => {
               console.log(
                 "No perms to display notifications. Falling back to dialog - error: ",
                 error
@@ -506,13 +507,13 @@ class FileView extends React.Component<props, states> {
       Filesystem.readFile({
         path: "docuclip/" + uniqueFilename,
         directory: FilesystemDirectory.Documents,
-      }).then((data) => {
+      }).then((data: { data: any }) => {
         // file exists and is downloaded, now get its location
           Filesystem.getUri({
             directory: FilesystemDirectory.Documents,
             path: "docuclip/" + uniqueFilename,
           }).then(
-            async (getUriResult) => {
+            async (getUriResult: { uri: any }) => {
             const path = getUriResult.uri
               FilePath.resolveNativePath(path).then((filePath ) => {
                 console.log('filepath',filePath);
@@ -549,7 +550,7 @@ class FileView extends React.Component<props, states> {
 
               
             });
-      }).catch((error) => {
+      }).catch((error: any) => {
           console.log("Verbose filesystem get error", error)
           this.setState({ error: error })
           this.setState({ isLoading: false })

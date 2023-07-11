@@ -1,7 +1,7 @@
 import {
-  FilesystemDirectory,
-  FilesystemEncoding,
   Plugins,
+  FilesystemDirectory,
+  FilesystemEncoding
 } from "@capacitor/core"
 import Axios from "axios"
 import apiRoutes from "./Routes"
@@ -32,7 +32,7 @@ const categoryFunctions = () => {
           path: "structure.txt",
           directory: FilesystemDirectory.Data,
           encoding: FilesystemEncoding.UTF8,
-        }).catch((error) => {
+        }).catch((error: any) => {
           console.log("error: ", error)
           return { data: "- -" }
         })

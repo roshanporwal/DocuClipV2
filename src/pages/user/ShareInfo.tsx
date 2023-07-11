@@ -16,6 +16,7 @@ import GenderIcon from '../../assets/profile-icons/gender-icon.png'
 import MailIcon from '../../assets/profile-icons/mail-icon.png'
 import MobileIcon from '../../assets/profile-icons/mobile_icon.png'
 import NameIcon from '../../assets/profile-icons/name_icon.png'
+import BusinessIcon from '../../assets/profile-icons/briefcase.png'
 import SpouceIcon from '../../assets/profile-icons/spouce-icon.png'
 import StateIcon from '../../assets/profile-icons/state_icon.png'
 import VehicleIcon from '../../assets/profile-icons/vehicle-icon.png'
@@ -29,6 +30,7 @@ type details = {
   userEmail: string
   userName: string
   fullname: string
+  
   nickname: string
 }
 type states = {
@@ -54,6 +56,7 @@ export default class ShareInfo extends React.Component<props, states> {
         userEmail: userEmail,
         mobile: userName,
         fullname: fullname,
+        
         nickname: nickname
       }
 
@@ -62,15 +65,18 @@ export default class ShareInfo extends React.Component<props, states> {
             error:null,
             additional_details :{
               Fullname: {value:fullname,icon:NameIcon,checked:false},
+              
               Mobile: {value:userName,icon:MobileIcon,checked:false},
         }
     }
     let add_data = localStorage.getItem('Additional Data');
   
     if(add_data){
-        let {Address1,
+        let {businessname,
+            Address1,
             Address2,
             City,
+            Pincode,
             State,
             Father, 
             Spouce,
@@ -87,6 +93,7 @@ export default class ShareInfo extends React.Component<props, states> {
             error:null,
             additional_details :{
               Fullname: {value:fullname,icon:NameIcon,checked:false},
+              businessname: {value:businessname,icon:BusinessIcon,checked:false},
               Mobile: {value:userName,icon:MobileIcon,checked:false},
               Email : {value:Email,icon:MailIcon,checked:false},
               Gender : {value:Gender,icon:GenderIcon,checked:false}, 
@@ -95,6 +102,7 @@ export default class ShareInfo extends React.Component<props, states> {
               Address1 : {value:Address1,icon:MapIcon,checked:false},
               Address2 : {value:Address2,icon:MapIcon,checked:false},
               City : {value:City,icon:CityIcon,checked:false},
+              Pincode : {value:Pincode,icon:MapIcon,checked:false},
               State : {value:State,icon:StateIcon,checked:false},
               PAN : {value:PAN,icon:CardIcon,checked:false},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon,checked:false},

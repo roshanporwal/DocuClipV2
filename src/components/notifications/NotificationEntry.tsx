@@ -7,7 +7,8 @@ import "./notifications.css"
 import Axios from "axios"
 import apiRoutes from "../Routes"
 import { getToken } from "../login/TokenProvider"
-import { FilesystemDirectory, Plugins } from "@capacitor/core"
+import {  Plugins, FilesystemDirectory } from "@capacitor/core"
+
 import { FileOpener } from "@ionic-native/file-opener"
 import Certified from '../../assets/certified-icon.png'
 
@@ -144,11 +145,11 @@ class NotificationEntry extends React.Component<props, states> {
                   data: response.data,
                   directory: FilesystemDirectory.Data,
                 })
-                  .then((response) => {
+                  .then((response: any) => {
                     // good good
                     // console.log('response: ', response);
                   })
-                  .catch((error) => {
+                  .catch((error: any) => {
                     console.log("Verbose error: ", error)
                   })
               })
@@ -175,7 +176,7 @@ class NotificationEntry extends React.Component<props, states> {
           directory: FilesystemDirectory.Data,
           path: "docuclip/" + uniqueFilename,
         }).then(
-          (getUriResult) => {
+          (getUriResult: { uri: any }) => {
             // now use 3rd party apps to open this apps
             const path = getUriResult.uri
             FileOpener.open(path, contentType)
@@ -197,12 +198,12 @@ class NotificationEntry extends React.Component<props, states> {
                 }
               })
           },
-          (error) => {
+          (error: any) => {
             console.log("Verbose filesystem get error", error)
           }
         )
       })
-      .catch((error) => {
+      .catch((error: any) => {
         // print the errors
         console.log("Error", error)
       })
@@ -254,7 +255,7 @@ class NotificationEntry extends React.Component<props, states> {
                 ],
               })
             })
-            .catch((error) => {
+            .catch((error: any) => {
               console.log(
                 "No perms to display notifications. Falling back to dialog - error: ",
                 error

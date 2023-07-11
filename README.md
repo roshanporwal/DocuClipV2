@@ -1,7 +1,5 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
 ### What is this repository for? ###
 
 * Quick summary
@@ -17,13 +15,12 @@ This README would normally document whatever steps are necessary to get your app
 * How to run tests
 * Deployment instructions
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+# To generate APK , run following commands
+* ionic build
+* npx cap copy android
+* cd android
+* On macOS/Linux: ./gradlew assembleDebug 
+* On Windows: gradlew.bat assembleDebug
+* This command compiles the Android project and generates the APK file. Locate the generated APK file in the android/app/build/outputs/apk/debug directory.

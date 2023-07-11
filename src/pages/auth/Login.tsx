@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef , useEffect} from "react"
 import {
   IonContent,
   IonInput,
@@ -20,6 +20,7 @@ import apiRoutes from "../../components/Routes"
 // import login modules
 import { isLoggedIn } from "../../components/login/TokenProvider"
 import {call} from 'ionicons/icons'
+import {Plugins, Capacitor} from '@capacitor/core';
 
 // if user is already logged in, then redirect to home
 const redirectIfLoggedin = () => {
@@ -33,7 +34,35 @@ const Login: React.FC = () => {
 
   const [error, setError] = useState<string>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [userName, setUserName] = useState<any>('')
+  const [showExitAlert, setShowExitAlert] = useState(false);
 
+  useEffect(()=>{
+    if(localStorage.getItem('username')){
+      setUserName(localStorage.getItem('username'))
+    }   
+    if (Capacitor.isNative) {
+      Plugins.App.addListener("backButton", (e) => {
+        if (window.location.pathname === "/login") {
+          // Show A Confirm Box For User to exit app or not
+          let ans = window.confirm("Are you sure to exit App?");
+          if (ans) {
+            Plugins.App.exitApp();
+          } 
+        } else if (window.location.pathname === "/login") {
+           // Show A Confirm Box For User to exit app or not
+          let ans = window.confirm("Are you sure to exit App?");
+          if (ans) {
+            Plugins.App.exitApp();
+          } 
+        } 
+      });
+    }
+   
+    }, []);
+    
+  
+    
   // declare refs
   const enteredUsernameRef = useRef<HTMLIonInputElement>(null)
 
@@ -41,12 +70,13 @@ const Login: React.FC = () => {
     window.location.href = '/register'
   }
   
+  
   const loginClickHandler = () => {
     setIsLoading(true)
 
     // get the values from refs
     const username = enteredUsernameRef.current?.value
-
+    setUserName(username);
     // throw and error if either of the fields are empty
     if (!username) {
       setError("Please enter the phone number")
@@ -76,6 +106,7 @@ const Login: React.FC = () => {
         if (response.data.status === "success") {
           sessionStorage.setItem('otp', OTP)
           sessionStorage.setItem('username', username as string)
+          localStorage.setItem('username', username as string)
           window.location.href = '/otp'
         } else {
           if (response.data.error) {
@@ -137,7 +168,7 @@ const Login: React.FC = () => {
           },
         ]}
       />
-
+    
       <IonLoading
         isOpen={!!isLoading}
         onDidDismiss={() => setIsLoading(false)}
@@ -162,6 +193,7 @@ const Login: React.FC = () => {
               <IonIcon icon={call} className="IonIcon"/>
               <IonInput
                 type='text'
+                value={userName? userName : ''}
                 autocomplete='username'
                 ref={enteredUsernameRef}
                 placeholder="Enter Your Mobile Number"

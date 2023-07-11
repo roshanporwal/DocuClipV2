@@ -182,3 +182,7 @@ ion-item {
                 0px 0.30914px 0.618281px rgba(0, 0, 0, 0.0527031);
     border-radius: 10px;
 }
+
+ion-popover [popover]:not(:popover-open):not(dialog[open]) {
+    display: contents;
+}

@@ -10,7 +10,7 @@ import './subcategory.css'
 import {
   Plugins,
   FilesystemDirectory,
-  FilesystemEncoding,
+  FilesystemEncoding
 } from "@capacitor/core"
 import SubCategoryItem from "./subCategoryItem"
 import Bus from '../../assets/sub-categories/bus.png'
@@ -214,7 +214,7 @@ class SubCategoryHome extends React.Component<props, states> {
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(error)
         this.setState({ isStructureNotFound: true, isLoading: false })
 

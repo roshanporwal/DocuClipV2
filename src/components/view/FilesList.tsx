@@ -15,7 +15,7 @@ import { getToken, isLoggedIn } from "../../components/login/TokenProvider"
 import {
   Plugins,
   FilesystemDirectory,
-  FilesystemEncoding,
+  FilesystemEncoding
 } from "@capacitor/core"
 import Axios from "axios"
 import moment from "moment"
@@ -103,7 +103,7 @@ class FilesList extends React.Component<Props, States> {
         path: "structure.txt",
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
-      }).catch((error) => {
+      }).catch((error: any) => {
         console.log(error)
         this.setState({ isStructureNotFound: true, isLoading: false })
         return { data: "" }
@@ -145,7 +145,7 @@ class FilesList extends React.Component<Props, States> {
         path: getToken().userId + "_list.txt",
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
-      }).catch((error) => {
+      }).catch((error: any) => {
         console.log(error)
         this.setState({ isStructureNotFound: true, isLoading: false })
 

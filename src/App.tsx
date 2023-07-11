@@ -23,12 +23,12 @@ import "./theme/variables.css"
 
 /* Code app imports */
 import {
-  Filesystem,
-  Plugins,
-  PushNotification,
+  Plugins
+  //PushNotification,
   //PushNotificationToken,
-  PushNotificationActionPerformed,
+  //PushNotificationActionPerformed,
 } from "@capacitor/core"
+
 import Routes from "./Routes"
 import { IonAlert } from "@ionic/react"
 
@@ -140,7 +140,7 @@ class App extends React.Component<{}, states> {
   }
 
   handlePushNotifications = () => {
-    const { PushNotifications } = Plugins
+   /* const { PushNotifications } = Plugins
 
     // On success, we should be able to receive notifications
     PushNotifications.addListener("registrationError", (error: any) => {
@@ -159,7 +159,7 @@ class App extends React.Component<{}, states> {
       (notification: PushNotificationActionPerformed) => {
         alert("Push action performed: " + JSON.stringify(notification))
       }
-    )
+    )*/
   }
 
   render() {

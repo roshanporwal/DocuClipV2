@@ -17,8 +17,9 @@ import "./calendar.css"
 import {
   Plugins,
   FilesystemDirectory,
-  FilesystemEncoding,
+  FilesystemEncoding
 } from "@capacitor/core"
+
 // importing axios and its routes
 import axios from "axios"
 import apiRoutes from "../../components/Routes"
@@ -153,7 +154,7 @@ class Calendar extends React.Component<props, states> {
         path: "structure.txt",
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
-      }).catch((error) => {
+      }).catch((error: any) => {
         console.log(error)
         this.setState({ isLoading: false })
         return { data: "" }
@@ -195,7 +196,7 @@ class Calendar extends React.Component<props, states> {
         path: getToken().userId + "_list.txt",
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
-      }).catch((error) => {
+      }).catch((error: any) => {
         console.log(error)
         this.setState({ isLoading: false })
 

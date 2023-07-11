@@ -9,9 +9,9 @@ import UploadIcon from "./file-upload.png"
 import { getToken } from "../login/TokenProvider";
 import MD5 from "crypto-js/md5";
 import {
-  FilesystemDirectory,
-  FilesystemEncoding,
   Plugins,
+  FilesystemDirectory,
+  FilesystemEncoding
 } from "@capacitor/core"
 import { now } from "moment";
 import { Server } from "http";
@@ -118,7 +118,7 @@ class UploadFile extends React.Component<props, states> {
                         data: file_content,
                         directory: FilesystemDirectory.Documents,
                       })
-                        .then((response) => {
+                        .then((response: any) => {
                           console.log(response)
                           return_json = {
                             status       : "success",
@@ -139,7 +139,7 @@ class UploadFile extends React.Component<props, states> {
                           }
                         
                         })
-                        .catch((error) => {
+                        .catch((error: string) => {
                           console.log("File write error: ", error)
                           this.props.parentSetState("error","File write error:"+error )
                         })

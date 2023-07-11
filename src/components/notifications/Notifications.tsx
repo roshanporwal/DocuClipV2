@@ -1,8 +1,10 @@
 import {
-  FilesystemDirectory,
-  FilesystemEncoding,
   Plugins,
+  FilesystemDirectory,
+  FilesystemEncoding
 } from "@capacitor/core"
+/*import { FilesystemDirectory,
+  FilesystemEncoding } from '@capacitor/filesystem'*/
 import Axios from "axios" 
 import React from "react"
 import { getToken, isLoggedIn } from "../login/TokenProvider"
@@ -95,7 +97,7 @@ class Notifications extends React.Component<props, states> {
         path: "structure.txt",
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
-      }).catch((error) => {
+      }).catch((error: any) => {
         console.log(error)
         this.setState({ isStructureNotFound: true })
         return { data: "" }

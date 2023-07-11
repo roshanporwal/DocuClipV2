@@ -15,6 +15,7 @@ type details = {
   userEmail: string
   userName: string
   fullname: string
+ 
   nickname: string
 }
 type states = {
@@ -37,6 +38,7 @@ export default class Profile extends React.Component<props, states> {
         userEmail: userEmail,
         userName: userName,
         fullname: fullname,
+        
         nickname: nickname
       },
     }

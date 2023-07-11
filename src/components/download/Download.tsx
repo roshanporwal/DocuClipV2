@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IonAlert, IonApp, IonContent } from "@ionic/react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 // import auth functions
 import { getToken, isLoggedIn } from "../login/TokenProvider";

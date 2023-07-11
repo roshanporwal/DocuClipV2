@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { IonButton, IonIcon, IonAlert } from "@ionic/react"
 import { shareSocialOutline, shareSocialSharp } from "ionicons/icons"
+import {Plugins, FilesystemDirectory} from '@capacitor/core'
 
-import { FilesystemDirectory, Plugins } from "@capacitor/core"
 import apiRoutes from "../Routes"
 
 import axios from "axios"
@@ -205,7 +205,7 @@ const Success: React.FC<props> = (props) => {
                           ],
                         })
                       })
-                      .catch((error) => {
+                      .catch((error: any) => {
                         console.log("No perms - error: ", error)
                         props.setError(
                           props.fileName +
@@ -213,7 +213,7 @@ const Success: React.FC<props> = (props) => {
                         )
                       })
                   })
-                  .catch((error) => {
+                  .catch((error: any) => {
                     console.log("Verbose write error: ", error)
                     props.setError("There was an error saving/writing the file")
                   })

@@ -7,6 +7,7 @@ import { isLoggedIn } from "../../components/login/TokenProvider";
 
 import { IonAlert } from '@ionic/react';
 import { Plugins, PermissionType, CameraResultType } from "@capacitor/core";
+
 import Axios from 'axios';
 import apiRoutes from '../../components/Routes';
 const { Camera, Permissions  } = Plugins;
@@ -62,7 +63,7 @@ class QrScanner extends React.Component<props, states> {
 
   async componentDidMount() {
     // test code - https://capacitorjs.com/docs/apis/permissions
-    const hasPermission = await Permissions.query({ name: PermissionType.Camera });
+   const hasPermission = await Permissions.query({ name: PermissionType.Camera });
     console.log('hasPermission: ', hasPermission);
     this.setState({ hasCameraPermission: hasPermission.state })
     this.openScanner();

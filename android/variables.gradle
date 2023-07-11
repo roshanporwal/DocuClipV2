@@ -1,6 +1,6 @@
 ext {
     minSdkVersion = 21
-    compileSdkVersion = 30
+    compileSdkVersion = 31
     targetSdkVersion = 30
     androidxAppCompatVersion = '1.1.0'
     androidxCoreVersion =  '1.2.0'
@@ -11,7 +11,7 @@ ext {
     firebaseMessagingVersion =  '20.1.2'
     playServicesLocationVersion =  '17.0.0'
     junitVersion =  '4.12'
-    androidxJunitVersion =  '1.1.1'
+    androidxJunitVersion =  '1.1.5'
     androidxEspressoCoreVersion =  '3.2.0'
     cordovaAndroidVersion =  '7.0.0'
 }

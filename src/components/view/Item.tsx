@@ -20,10 +20,11 @@ import mapping from "../../ExtensionMapping"
 import axios from "axios"
 import apiRoutes from "../Routes"
 import {
-  FilesystemDirectory,
-  FilesystemEncoding,
   Plugins,
+  FilesystemDirectory,
+  FilesystemEncoding
 } from "@capacitor/core"
+
 import { FileOpener } from "@ionic-native/file-opener"
 import { FilePath } from "@ionic-native/file-path"
 import { FileEntry } from "@ionic-native/file"
@@ -181,7 +182,7 @@ const Item: React.FC<props> = (props) => {
         path: "structure.txt",
         directory: FilesystemDirectory.Data,
         encoding: FilesystemEncoding.UTF8,
-      }).catch((error) => {
+      }).catch((error: any) => {
         console.log(error)
         setStructureNotFound(true)
         setLoading(false)
@@ -235,7 +236,7 @@ const Item: React.FC<props> = (props) => {
           directory: FilesystemDirectory.Documents,
           path: "docuclip/" + uniqueFilename,
         }).then(
-          (getUriResult) => {
+          (getUriResult: { uri: any }) => {
             const path = getUriResult.uri
             // get content type of that file
             FilePath.resolveNativePath(path).then((filePath ) => {
@@ -267,7 +268,7 @@ const Item: React.FC<props> = (props) => {
                 }
               })
           },
-          (error) => {
+          (error: React.SetStateAction<string | undefined>) => {
             console.log("Verbose filesystem get error", error)
                 setLoading(false)
               setError(error)
@@ -309,12 +310,12 @@ const Item: React.FC<props> = (props) => {
                   data: response.data,
                   directory: FilesystemDirectory.Documents,
                 })
-                  .then((response) => {
+                  .then((response: any) => {
                     setLoading(false)
                     // good good
                     // console.log('response: ', response);
                   })
-                  .catch((error) => {
+                  .catch((error: React.SetStateAction<string | undefined>) => {
                     console.log("Verbose error: ", error)
                     setError(error)
                     setLoading(false)
@@ -377,13 +378,13 @@ const Item: React.FC<props> = (props) => {
       Filesystem.readFile({
         path: "docuclip/" + uniqueFilename,
         directory: FilesystemDirectory.Documents,
-      }).then((data) => {
+      }).then((data: { data: any }) => {
         // file exists and is downloaded, now get its location
           Filesystem.getUri({
             directory: FilesystemDirectory.Documents,
             path: "docuclip/" + uniqueFilename,
           }).then(
-            async (getUriResult) => {
+            async (getUriResult: { uri: any }) => {
             const path = getUriResult.uri
               FilePath.resolveNativePath(path).then((filePath ) => {
                 console.log('filepath',filePath);
@@ -419,7 +420,7 @@ const Item: React.FC<props> = (props) => {
               setLoading(false)
               
             });
-      }).catch((error) => {
+      }).catch((error: React.SetStateAction<string | undefined>) => {
           console.log("Verbose filesystem get error", error)
           setError(error);
           setLoading(false)
@@ -490,7 +491,7 @@ const Item: React.FC<props> = (props) => {
         console.log(response)
         if (response.data.status === "success") {
           // redirect to previous page
-          window.location.reload(false);
+          window.location.reload();
         } else {
           console.log("Verbose error: ", response.data)
           setError("There was an error deleting the file")

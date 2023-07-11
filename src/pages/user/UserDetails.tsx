@@ -16,17 +16,20 @@ import SpouceIcon from '../../assets/profile-icons/spouce-icon.png'
 import StateIcon from '../../assets/profile-icons/state_icon.png'
 import VehicleIcon from '../../assets/profile-icons/vehicle-icon.png'
 import MapIcon from '../../assets/profile-icons/map-icon.png'
+import BusinessIcon from '../../assets/profile-icons/briefcase.png'
 
 type details = {
   userId: string
   userEmail: string
   userName: string
   fullname: string
+  
   nickname: string
 }
 
 type props = { details: details }
 type states = {
+  businessname: any,
       Email :any,
       Gender:any,
       Father : any,
@@ -34,6 +37,7 @@ type states = {
       Address1 : any,
       Address2 : any,
       City : any,
+      Pincode : any,
       State : any, 
       PAN : any,
       AadhaarCard : any,
@@ -51,9 +55,11 @@ export default class UserDetails extends React.Component<props, states> {
     let add_data = localStorage.getItem('Additional Data');
   
     if(add_data){
-      let {Address1,
+      let {businessname,
+        Address1,
           Address2,
           City,
+          Pincode,
           State,
           Father, 
           Spouce,
@@ -68,6 +74,7 @@ export default class UserDetails extends React.Component<props, states> {
 
 
         this.state = {
+          businessname: {value:businessname,icon:BusinessIcon},
               Email:{value:Email,icon:MailIcon},
               Gender : {value:Gender,icon:GenderIcon}, 
               Father : {value:Father,icon:FatherIcon}, 
@@ -75,6 +82,7 @@ export default class UserDetails extends React.Component<props, states> {
               Address1 : {value:Address1,icon:MapIcon},
               Address2 : {value:Address2,icon:MapIcon},
               City : {value:City,icon:CityIcon},
+              Pincode : {value:Pincode,icon:MapIcon},
               State : {value:State,icon:StateIcon},
               PAN : {value:PAN,icon:CardIcon},
               AadhaarCard : {value:AadhaarCard,icon:AadharIcon},
@@ -87,6 +95,7 @@ export default class UserDetails extends React.Component<props, states> {
     }
     else{
       this.state = {
+        businessname: {value:'',icon:BusinessIcon},
               Email:{value:"",icon:MailIcon},
               Gender : {value: "",icon:GenderIcon},
               Father : {value: "",icon:FatherIcon},
@@ -94,6 +103,7 @@ export default class UserDetails extends React.Component<props, states> {
               Address1 : {value: "",icon:MapIcon},
               Address2 : {value: "",icon:MapIcon},
               City : {value: "",icon:CityIcon},
+              Pincode : {value: "",icon:MapIcon},
               State : {value: "",icon:StateIcon}, 
               PAN : {value: "",icon:CardIcon},
               AadhaarCard : {value: "",icon:AadharIcon},
@@ -135,6 +145,14 @@ export default class UserDetails extends React.Component<props, states> {
         </div>
 
         <div className='profile-card-item'>
+          <img src={BusinessIcon} width={'28px'}/>
+          <div className="details"> 
+            <span>Business name</span>
+            <p>{this.state.businessname['value'] ? this.state.businessname['value']: 'Not Uploaded'}</p>
+          </div>
+        </div>
+
+        <div className='profile-card-item'>
           <img src={MobileIcon}/>
           <div className="details"> 
             <span>Mobile</span>
@@ -166,7 +184,7 @@ export default class UserDetails extends React.Component<props, states> {
                 <img src={this.state[item]["icon"]} height="30" width="28" />
               <div className="details"> 
                 <span>{item}</span>
-                <p>{this.state[item]["value"] ? item ==  "DOB" ? this.showDate(this.state[item]["value"]) : this.state[item]["value"] : "Not Uploaded"}</p>
+                <p>{this.state[item]["value"] ? item ===  "DOB" ? this.showDate(this.state[item]["value"]) : this.state[item]["value"] : "Not Uploaded"}</p>
               </div>
             </div>)
         })}
