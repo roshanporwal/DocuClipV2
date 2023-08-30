@@ -36,7 +36,7 @@ const TokenProvider = () => {
             userEmail: _token.userEmail,
             userName: _token.userName,
             fullname: _token.fullname,
-           // businessname: _token.businessname,
+           businessname: _token.businessname,
             nickname: _token.nickname
         }
 

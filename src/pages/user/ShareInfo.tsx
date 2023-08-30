@@ -30,7 +30,7 @@ type details = {
   userEmail: string
   userName: string
   fullname: string
-  
+  businessname: string
   nickname: string
 }
 type states = {
@@ -49,14 +49,14 @@ export default class ShareInfo extends React.Component<props, states> {
       window.location.replace("/")
     }
 
-    const { userId, userEmail, userName, fullname, nickname } = getToken()
+    const { userId, userEmail, userName, fullname, nickname, businessname } = getToken()
 
      this.main_details = {
         userId: userId,
         userEmail: userEmail,
         mobile: userName,
         fullname: fullname,
-        
+        businessname: businessname,
         nickname: nickname
       }
 
@@ -72,7 +72,7 @@ export default class ShareInfo extends React.Component<props, states> {
     let add_data = localStorage.getItem('Additional Data');
   
     if(add_data){
-        let {businessname,
+        let {
             Address1,
             Address2,
             City,

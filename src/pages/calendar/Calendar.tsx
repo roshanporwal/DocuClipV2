@@ -249,6 +249,11 @@ class Calendar extends React.Component<props, states> {
   }
 
   async componentDidMount() {
+    const data1:any=localStorage.getItem('REACT_TOKEN_AUTH');
+    const data=JSON.parse(data1);
+    if(data.fullname === '0'){
+      window.location.replace('/category');
+    }
     const { Network } = Plugins
     let status = await Network.getStatus()
     

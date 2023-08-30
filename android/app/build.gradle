@@ -3,20 +3,20 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         release {
-            storeFile file('F:\\web development\\DocuClipV2\\key\\Docuclip_keystore.jks')
+            storeFile file('F:\\DocuClip\\DocuClipV2\\key\\latest_keystore.jks')
             storePassword 'Docuclip12345'
-            keyAlias 'newKey'
+            keyAlias 'key0'
             keyPassword 'Docuclip12345'
             v2SigningEnabled false
         }
     }
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.docuclipv2"
+        applicationId "com.innothoughts.docuclipv2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.3"
+        versionCode 10
+        versionName "1.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }

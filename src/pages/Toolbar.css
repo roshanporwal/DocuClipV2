@@ -1,64 +1,72 @@
+.sc-ion-buttons-md-h {
+  display: initial;
+}
+
+.sc-ion-buttons-ios-h {
+  display: initial;
+}
+
 .toolbar {
-    position: fixed;
-    z-index: 100;
-    width: 100%;
-    height: 4em;
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    flex-direction: row;
-    margin-top: 1.5rem;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 4em;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 1.5rem;
 }
 .toolbar-normal-tabs {
-    position: fixed;
-    width: 100%;
-    height: 20px;
+  position: fixed;
+  width: 100%;
+  height: 20px;
 
-    background: linear-gradient(white, transparent);
+  background: linear-gradient(white, transparent);
 }
-.bottom-bar{
-    bottom: 0;
-    margin-bottom: -35px;
-    position: fixed;
-    z-index: 100;
+.bottom-bar {
+  bottom: 0;
+  margin-bottom: -35px;
+  position: fixed;
+  z-index: 100;
 }
 
-.back-to-cat{
-    margin-right: 1.5rem;
+.back-to-cat {
+  margin-right: 1.5rem;
 }
 
 .header-margin {
-    margin-top: 83px;
+  margin-top: 83px;
 }
 
 .header-margin-tabs {
-    z-index: 105;
-    margin-top: 15vh;
-    margin-bottom: 15vh;
-    overflow: scroll;
-    height:75vh;
-} 
+  z-index: 105;
+  margin-top: 15vh;
+  margin-bottom: 15vh;
+  overflow: scroll;
+  height: 75vh;
+}
 
 .toolbar-header {
-    color: black;
-    font-weight: bold;
-    font-size: 27px;
-    margin-left: 1rem;
+  color: black;
+  font-weight: bold;
+  font-size: 27px;
+  margin-left: 0.7rem;
 }
 
-.toolbar-tabs{
-    z-index: 999;
-    bottom: 0;
-    position: fixed;
-    width: 100%;
+.toolbar-tabs {
+  z-index: 999;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
 }
 
-.top-svg-bg{
-    position: fixed;
-    z-index: -1;
+.top-svg-bg {
+  position: fixed;
+  z-index: -1;
 }
-.bottom-svg-bg{
-    position: fixed;
-    z-index: -1;
-    bottom: 0;
+.bottom-svg-bg {
+  position: fixed;
+  z-index: -1;
+  bottom: 0;
 }

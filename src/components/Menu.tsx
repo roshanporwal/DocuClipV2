@@ -8,29 +8,33 @@ import {
   IonMenu,
   IonMenuToggle,
   IonNote,
-} from '@ionic/react';
+} from "@ionic/react";
 
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React from "react";
+import { useLocation } from "react-router-dom";
 import {
-    logOutOutline,
-    logOutSharp,
-    listOutline,
-    listSharp,
-    cloudUploadOutline,
-    cloudUploadSharp,
-    calendarOutline,
-    calendarSharp,
-    qrCodeOutline,
-    qrCodeSharp,
-    trashBin,
-    trashBinSharp,
-    // cardOutline,
-    // cardSharp
-} from 'ionicons/icons';
+  logOutOutline,
+  logOutSharp,
+  listOutline,
+  listSharp,
+  cloudUploadOutline,
+  cloudUploadSharp,
+  calendarOutline,
+  calendarSharp,
+  qrCodeOutline,
+  qrCodeSharp,
+  trashBin,
+  trashBinSharp,
+  helpCircleOutline,
+  helpCircle,
+  personCircle,
+  personCircleOutline,
+  // cardOutline,
+  // cardSharp
+} from "ionicons/icons";
 
-import { getToken, isLoggedIn } from './login/TokenProvider'
-import './Menu.css';
+import { getToken, isLoggedIn } from "./login/TokenProvider";
+import "./Menu.css";
 
 interface AppPage {
   url: string;
@@ -41,11 +45,18 @@ interface AppPage {
 
 const appPages: AppPage[] = [
   {
-    title: 'Category',
-    url: '/category',
-    iosIcon: listOutline,
-    mdIcon: listSharp
+    title: "Profile",
+    url: "/profile",
+    iosIcon: personCircleOutline,
+    mdIcon: personCircle,
   },
+  {
+    title: "Category",
+    url: "/category",
+    iosIcon: listOutline,
+    mdIcon: listSharp,
+  },
+
   // {
   //   title: 'Create Visiting Card',
   //   url: '/visiting_card',
@@ -53,71 +64,96 @@ const appPages: AppPage[] = [
   //   mdIcon: cardSharp
   // },
   {
-    title: 'Calendar',
-    url: '/calendar',
+    title: "Calendar",
+    url: "/calendar",
     iosIcon: calendarOutline,
-    mdIcon: calendarSharp
+    mdIcon: calendarSharp,
   },
   {
-    title: 'Upload',
-    url: '/upload',
+    title: "Upload",
+    url: "/upload",
     iosIcon: cloudUploadOutline,
-    mdIcon: cloudUploadSharp
+    mdIcon: cloudUploadSharp,
   },
   {
-    title: 'QR Scanner',
-    url: '/scanner',
+    title: "QR Scanner",
+    url: "/scanner",
     iosIcon: qrCodeOutline,
-    mdIcon: qrCodeSharp
+    mdIcon: qrCodeSharp,
   },
   {
-    title: 'Logout',
-    url: '/logout',
+    title: "Logout",
+    url: "/logout",
     iosIcon: logOutOutline,
-    mdIcon: logOutSharp
+    mdIcon: logOutSharp,
   },
   {
-    title: 'Delete Account',
-    url: '/profile/delete-account',
+    title: "Help",
+    url: "/howtouse",
+    iosIcon: helpCircleOutline,
+    mdIcon: helpCircle,
+  },
+  {
+    title: "Delete Account",
+    url: "/profile/delete-account",
     iosIcon: trashBin,
     mdIcon: trashBinSharp,
-  }
+  },
 ];
 
 const Menu: React.FC = () => {
-    const location = useLocation();
+  const location = useLocation();
 
-    if (isLoggedIn() === false) {
-        return <></>
-    }
+  if (isLoggedIn() === false) {
+    return <></>;
+  }
 
-    const token = getToken()
+  const token = getToken();
 
-    return (
-        <IonMenu contentId="main" type="overlay">
-        <IonContent>
-            <IonList id="inbox-list">
-              <IonMenuToggle autoHide={false}>
-                <IonItem routerLink='/profile' routerDirection="none" lines="none" detail={false}>
-                  <div className="menu-title">
-                    <IonListHeader class="ion-text-capitalize">Actions</IonListHeader>
-                  </div>
+  return (
+    <IonMenu contentId="main" type="overlay">
+      <IonContent>
+        <IonList id="inbox-list">
+          <IonMenuToggle autoHide={false}>
+            <IonItem
+              routerLink="/profile"
+              routerDirection="none"
+              lines="none"
+              detail={false}
+            >
+              <div className="menu-title">
+                <IonListHeader class="ion-text-capitalize">
+                  Actions
+                </IonListHeader>
+              </div>
+            </IonItem>
+          </IonMenuToggle>
+          {appPages.map((appPage, index) => {
+            return (
+              <IonMenuToggle key={index} autoHide={false}>
+                <IonItem
+                  className={
+                    location.pathname === appPage.url ? "selected" : ""
+                  }
+                  routerLink={appPage.url}
+                  routerDirection="none"
+                  lines="none"
+                  detail={false}
+                >
+                  <IonIcon
+                    slot="start"
+                    ios={appPage.iosIcon}
+                    md={appPage.mdIcon}
+                  />
+                  <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
               </IonMenuToggle>
-              {appPages.map((appPage, index) => {
-                  return (
-                  <IonMenuToggle key={index} autoHide={false}>
-                      <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                        <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                        <IonLabel>{appPage.title}</IonLabel>
-                      </IonItem>
-                  </IonMenuToggle>
-                  );
-              })}
-            </IonList>
-        </IonContent>
-        </IonMenu>
-    );
+            );
+          })}
+        </IonList>
+      </IonContent>
+    </IonMenu>
+  );
 };
 
 export default Menu;

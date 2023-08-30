@@ -42,10 +42,10 @@
   padding: 5 20px 20px 0;
 }
 .edit-and-share{
-  margin: 20px;
+  margin: 15px;
   display: flex;
   align-items: center;
-  width: 40%;
+  width: 100%;
   justify-content: space-between;
 }
 .profile-button {
